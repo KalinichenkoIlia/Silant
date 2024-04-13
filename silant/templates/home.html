@@ -1,0 +1,123 @@
+{% extends 'default.html' %}
+
+{% block title %}
+Silant
+{% endblock title %}
+
+{% block content %}
+<nav>
+    <button class="button active" onclick="changeForm(event, 'car')"> Техника</button>
+    <button class="button" onclick="changeForm(event, 'technical_service')" >Тех.обслуживание</button>
+    <button class="button" onclick="changeForm(event, 'complaints')">Рекламации</button>
+</nav>
+<div>
+    <div class="form " id="car">
+        <form action="" method="get">
+
+            {{ filter_car.form.as_p }}
+
+            <input type="submit" value="Найти"/>
+        </form>
+        <table>
+            <thead>
+            <tr>
+                <th>Модель техники</th>
+                <th>Зав.номер машины</th>
+                <th>Модель двигателя</th>
+                <th>Модель трансмиссии</th>
+                <th>Модель ведущего моста</th>
+                <th>Модель управляемого моста</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% if filter_car %}
+            {% for s in filter_car.qs %}
+            <tr>
+                <th>{{s.model_technique}}</th>
+                <td>{{s.factory_number}}</td>
+                <td>{{s.engine_model}}</td>
+                <td>{{s.transmission_model}}</td>
+                <td>{{s.model_drive_bridge}}</td>
+                <td>{{s.controlled_bridge_model}}</td>
+                {% empty %}
+                <td>данных о машине с таким заводским номером нет в системе</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="form" id="technical_service">
+        <table>
+            <thead>
+            <tr>
+                <th>Модель техники</th>
+                <th>Зав.номер машины</th>
+                <th>Модель двигателя</th>
+                <th>Модель трансмиссии</th>
+                <th>Модель ведущего моста</th>
+                <th>Модель управляемого моста</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% if filter_car %}
+            {% for s in filter_car.qs %}
+            <tr>
+                <th>{{s.model_technique}}</th>
+                <td>{{s.factory_number}}</td>
+                <td>{{s.engine_model}}</td>
+                <td>{{s.transmission_model}}</td>
+                <td>{{s.model_drive_bridge}}</td>
+                <td>{{s.controlled_bridge_model}}</td>
+                {% empty %}
+                <td>данных о машине с таким заводским номером нет в системе</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="form" id="complaints">
+        <form action="" method="get">
+
+            {{ filter_car.form.as_p }}
+
+            <input type="submit" value="Найти"/>
+        </form>
+        <table>
+            <thead>
+            <tr>
+                <th>Модель техники</th>
+                <th>Зав.номер машины</th>
+                <th>Модель двигателя</th>
+                <th>Модель трансмиссии</th>
+                <th>Модель ведущего моста</th>
+                <th>Модель управляемого моста</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% if filter_car %}
+            {% for s in filter_car.qs %}
+            <tr>
+                <th>{{s.model_technique}}</th>
+                <td>{{s.factory_number}}</td>
+                <td>{{s.engine_model}}</td>
+                <td>{{s.transmission_model}}</td>
+                <td>{{s.model_drive_bridge}}</td>
+                <td>{{s.controlled_bridge_model}}</td>
+                {% empty %}
+                <td>данных о машине с таким заводским номером нет в системе</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../static/scripts/home.js"></script>
+{% endblock content %}

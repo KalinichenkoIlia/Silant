@@ -1,8 +1,13 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, View
 from .models import Car, Complaints, TechnicalMaintenance
+from .filters import CarFilter
 
 
-class HomePageView(ListView):
-    template_name = 'home.html'
-    raise_exception = True
+def home_page(request):
+    filter_car = CarFilter(request.GET, queryset=Car.objects.all())
+    return render(request, 'home.html', {'filter_car': filter_car})
+
+
+
+

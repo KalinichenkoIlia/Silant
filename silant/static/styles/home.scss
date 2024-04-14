@@ -1,10 +1,23 @@
+@import './variables.color';
+
 .form {
   display: none;
 }
-.active_form {
-  display: block;
+.btn {
+  background-color: $basic-color-silant;
+  border:$basic-color-silant-blue solid 2px;
+  border-radius: 10px;
+  width: 25%;
+  height: 30px;
+  font-family: Astra-Sans-Bold, sans-serif;
+  font-size: 16px;
+
 }
 
-.active {
-  background-color: #4ac1f7;
+.btn.active{
+  background-color: $basic-color-silant-blue;
+  color: white;
+}
+.form.active_form {
+  display: block;
 }

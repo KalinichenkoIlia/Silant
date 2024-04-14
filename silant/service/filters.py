@@ -1,16 +1,14 @@
-from django.forms import TextInput, Select
-from .models import Car
+from django.forms import TextInput, Select, DateInput
+from .models import Car, TechnicalMaintenance
 from references import models
 import django_filters
 
 
 class CarFilter(django_filters.FilterSet):
-
     factory_number = django_filters.CharFilter(
         field_name="factory_number",
         label="Зав.номер машины",
         widget=TextInput(attrs={'class': 'form-control'}),
-
     )
     model_technique = django_filters.ModelChoiceFilter(
         field_name="model_technique",
@@ -42,3 +40,49 @@ class CarFilter(django_filters.FilterSet):
         widget=Select(attrs={'class': 'form-select'}),
         queryset=models.ControlledBridgeModel.objects.all()
     )
+
+
+class TechnicalServiceFilter(django_filters.FilterSet):
+    factory_number = django_filters.CharFilter(
+        field_name="car__factory_number",
+        label="Зав.номер машины",
+        widget=TextInput(attrs={'class': 'form-control'}),
+    )
+    type_maintenance = django_filters.ModelChoiceFilter(
+        field_name='type_maintenance',
+        label='Вид ТО',
+        widget=Select(attrs={'class': 'form-select'}),
+        queryset=models.TypeMaintenance.objects.all(),
+    )
+    date_event = django_filters.DateTimeFilter(
+        field_name='date_event',
+        label='Дата проведения ТО',
+        widget=DateInput(format='%Y-%m-%d', attrs={'class': 'form-control', 'type': 'date'})
+    )
+    order_number = django_filters.CharFilter(
+        field_name='order_number',
+        label='№ заказ-наряда',
+        widget=TextInput(attrs={'class': 'form-control'}),
+    )
+    date_order = django_filters.DateTimeFilter(
+        field_name='date_order',
+        label='Дата заказ-наряда',
+        widget=DateInput(format='%Y-%m-%d', attrs={'class': 'form-control', 'type': 'date'})
+    )
+    organization_maintenance = django_filters.ModelChoiceFilter(
+        field_name='organization_maintenance',
+        label='Организация, проводившая ТО',
+        widget=Select(attrs={'class': 'form-select'}),
+        queryset=models.OrganizationMaintenance.objects.all(),
+    )
+    service_company = django_filters.ModelChoiceFilter(
+        field_name='service_company',
+        label='Сервисная компания',
+        widget=Select(attrs={'class': 'form-select'}),
+        queryset=models.ServiceCompany.objects.all(),
+    )
+
+    class Meta:
+        fields = [
+            'car__car__factory_number'
+        ]

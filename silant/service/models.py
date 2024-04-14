@@ -5,7 +5,7 @@ import references.models as references
 
 
 class Car(models.Model):
-    factory_number = models.CharField(unique=True, max_length=128 , verbose_name='Заводской номер')
+    factory_number = models.CharField(unique=True, max_length=128, verbose_name='Заводской номер')
     model_technique = models.ForeignKey(references.ModelTechnique, on_delete=models.PROTECT, verbose_name='Модель техники')
 
     engine_model = models.ForeignKey(references.EngineModel, on_delete=models.PROTECT, verbose_name='Модель двигателя')

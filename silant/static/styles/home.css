@@ -2,12 +2,23 @@
   display: none;
 }
 
-.active_form {
-  display: block;
+.btn {
+  background-color: #EBE6D6;
+  border: #163E6C solid 2px;
+  border-radius: 10px;
+  width: 25%;
+  height: 30px;
+  font-family: Astra-Sans-Bold, sans-serif;
+  font-size: 16px;
 }
 
-.active {
-  background-color: #4ac1f7;
+.btn.active {
+  background-color: #163E6C;
+  color: white;
+}
+
+.form.active_form {
+  display: block;
 }
 
 /*# sourceMappingURL=home.css.map */

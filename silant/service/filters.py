@@ -82,7 +82,34 @@ class TechnicalServiceFilter(django_filters.FilterSet):
         queryset=models.ServiceCompany.objects.all(),
     )
 
-    class Meta:
-        fields = [
-            'car__car__factory_number'
-        ]
+
+class ComplaintsFilter(django_filters.FilterSet):
+    car = django_filters.CharFilter(
+        field_name="car__factory_number",
+        label="Зав.номер машины",
+        widget=TextInput(attrs={'class': 'form-control'}),
+    )
+    date_refusal = django_filters.DateTimeFilter(
+        field_name='date_refusal',
+        label='Дата отказа',
+        widget=DateInput(format='%Y-%m-%d', attrs={'class': 'form-control', 'type': 'date'})
+    )
+    date_restoration = django_filters.DateTimeFilter(
+        field_name='date_restoration',
+        label='Дата восстановления',
+        widget=DateInput(format='%Y-%m-%d', attrs={'class': 'form-control', 'type': 'date'})
+    )
+    recovery_method = django_filters.CharFilter(
+        field_name='recovery_method__title',
+        label='Способ восстановления',
+        widget=TextInput(attrs={'class': 'form-control'}),
+    )
+    service_company = django_filters.ModelChoiceFilter(
+        field_name='service_company',
+        label='Сервисная компания',
+        widget=Select(attrs={'class': 'form-select'}),
+        queryset=models.ServiceCompany.objects.all(),
+    )
+
+
+

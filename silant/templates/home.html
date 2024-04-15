@@ -5,28 +5,41 @@ Silant
 {% endblock title %}
 
 {% block content %}
+{% if request.user.is_authenticated %}
 <nav class="tabs_buttons">
-    <button class="btn " data-tab="car"> Техника</button>
-    <button class="btn" data-tab="technical_service" >Тех.обслуживание</button>
-    <button class="btn" data-tab="complaints" >Рекламации</button>
+    <button class="btn" data-tab="car"> Техника</button>
+    <button class="btn" data-tab="technical_service">Тех.обслуживание</button>
+    <button class="btn" data-tab="complaints">Рекламации</button>
 </nav>
+{% endif %}
 <div class="tabs_forms">
     <div class="form " data-tab="car">
         <form action="/" method="get">
-
+            {% if request.user.is_authenticated %}
             {{ filter_car.form.as_p }}
+            {% else %}
+            {{ filter_car.form.factory_number }}
+            {% endif %}
 
             <input class="submit_form" type="submit" value="Найти" data-tab="car"/>
         </form>
         <table>
             <thead>
             <tr>
-                <th>Модель техники</th>
                 <th>Зав.номер машины</th>
+                <th>Модель техники</th>
+
                 <th>Модель двигателя</th>
+                <th>Зав. № двигателя</th>
+
                 <th>Модель трансмиссии</th>
+                <th>Зав. № трансмиссии</th>
+
                 <th>Модель ведущего моста</th>
+                <th>Зав. № ведущего моста</th>
+
                 <th>Модель управляемого моста</th>
+                <th>Зав. № управляемого моста</th>
             </tr>
             </thead>
 
@@ -34,12 +47,21 @@ Silant
             {% if filter_car %}
             {% for s in filter_car.qs %}
             <tr>
-                <th>{{s.model_technique}}</th>
                 <td>{{s.factory_number}}</td>
+                <td>{{s.model_technique}}</td>
+
                 <td>{{s.engine_model}}</td>
+                <td>{{s.engine_serial_number}}</td>
+
                 <td>{{s.transmission_model}}</td>
+                <td>{{s.transmission_serial_numbers}}</td>
+
                 <td>{{s.model_drive_bridge}}</td>
+                <td>{{s.factory_number_drive_bridge}}</td>
+
                 <td>{{s.controlled_bridge_model}}</td>
+                <td>{{s.factory_number_controlled_bridge}}</td>
+
                 {% empty %}
                 <td>данных о машине с таким заводским номером нет в системе</td>
             </tr>
@@ -51,7 +73,7 @@ Silant
     <div class="form" data-tab="technical_service">
         <form action="/" method="get">
 
-            {{ filter_technical.form.as_p }}
+            {{ filter_technical_service.form.as_p }}
 
             <input class="submit_form" type="submit" value="Найти" data-tab="technical_service"/>
         </form>
@@ -71,11 +93,11 @@ Silant
             </thead>
 
             <tbody>
-            {% if filter_technical %}
-            {% for i in filter_technical.qs %}
+            {% if filter_technical_service %}
+            {% for i in filter_technical_service.qs %}
             <tr>
                 <td>{{i.car.factory_number}}</td>
-                <th>{{i.date_event}}</th>
+                <td>{{i.date_event}}</td>
                 <td>{{i.type_maintenance}}</td>
                 <td>{{i.order_number}}</td>
                 <td>{{i.date_order}}</td>
@@ -94,7 +116,7 @@ Silant
     <div class="form" data-tab="complaints">
         <form action="/" method="get">
 
-            {{ filter_car.form.as_p }}
+            {{ filter_complaints.form.as_p }}
 
             <input class="submit_form" type="submit" value="Найти" data-tab="complaints"/>
         </form>
@@ -103,23 +125,27 @@ Silant
             <tr>
                 <th>Модель техники</th>
                 <th>Зав.номер машины</th>
-                <th>Модель двигателя</th>
-                <th>Модель трансмиссии</th>
-                <th>Модель ведущего моста</th>
-                <th>Модель управляемого моста</th>
+                <th>Сервисная компания</th>
+                <th>Дата отказа</th>
+                <th>Время простоя дн</th>
+                <th>Дата восстановления</th>
+                <th>Способ восстановления</th>
             </tr>
             </thead>
 
             <tbody>
-            {% if filter_car %}
-            {% for s in filter_car.qs %}
+            {% if filter_complaints %}
+            {% for el in filter_complaints.qs %}
             <tr>
-                <th>{{s.model_technique}}</th>
-                <td>{{s.factory_number}}</td>
-                <td>{{s.engine_model}}</td>
-                <td>{{s.transmission_model}}</td>
-                <td>{{s.model_drive_bridge}}</td>
-                <td>{{s.controlled_bridge_model}}</td>
+                <td>{{el.car.model_technique}}</td>
+                <td>{{el.car.factory_number}}</td>
+                <td>{{el.service_company}}</td>
+                <td>{{el.date_refusal}}</td>
+                <td>{{el.equipment_downtime}}</td>
+
+                <td>{{el.date_restoration}}</td>
+                <td>{{el.recovery_method}}</td>
+
                 {% empty %}
                 <td>данных о машине с таким заводским номером нет в системе</td>
             </tr>

@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector(`[data-tab=${getCookie().tab}]`).classList.add('active')
 
     } else {
-        forms.querySelector('.active_form').classList.remove('active_form')
         forms.querySelector(`[data-tab=${'car'}]`).classList.add('active_form')
+        document.querySelector(`[data-tab=${'car'}]`).classList.add('active')
     }
     const tabs = () => {
 

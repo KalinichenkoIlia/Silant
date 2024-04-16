@@ -70,8 +70,8 @@ class Complaints(models.Model):
     recovery_method = models.ForeignKey(references.RecoveryMethod, on_delete=models.PROTECT,
                                         verbose_name='Способ восстановления')
     list_spare_parts = models.TextField(verbose_name='Используемые запасные части')
-    date_restoration = models.DateField(auto_now_add=False, blank=True, null=True, verbose_name='Дата восстановления')
-    equipment_downtime = models.IntegerField( blank=True, null=True, verbose_name='Время простоя техники')
+    date_restoration = models.DateField(default='В ремонте', auto_now_add=False, blank=True, null=True, verbose_name='Дата восстановления')
+    equipment_downtime = models.IntegerField(blank=True, null=True, verbose_name='Время простоя техники')
     car = models.ForeignKey(Car, on_delete=models.PROTECT, verbose_name='Mашина')
     service_company = models.ForeignKey(references.ServiceCompany, on_delete=models.PROTECT,
                                         verbose_name='Cервисная компания')

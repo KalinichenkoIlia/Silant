@@ -9,6 +9,7 @@ class CarFilter(django_filters.FilterSet):
         field_name="factory_number",
         label="Зав.номер машины",
         widget=TextInput(attrs={'class': 'form-control'}),
+
     )
     model_technique = django_filters.ModelChoiceFilter(
         field_name="model_technique",
@@ -110,6 +111,7 @@ class ComplaintsFilter(django_filters.FilterSet):
         widget=Select(attrs={'class': 'form-select'}),
         queryset=models.ServiceCompany.objects.all(),
     )
+
 
 
 

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, {})
     }
 
+
     const forms = document.querySelector('.tabs_forms');
     if (getCookie().tab) {
         forms.querySelector(`[data-tab=${getCookie().tab}]`).classList.add('active_form')
@@ -46,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     tabs()
+    document.querySelector('.account_logout').addEventListener('click', () => {
+        document.cookie = `tab=car`;
+    })
 })
 
 

@@ -45,22 +45,24 @@ Silant
 
             <tbody>
             {% if filter_car %}
-            {% for s in filter_car.qs %}
+            {% for car in filter_car.qs %}
             <tr>
-                <td>{{s.factory_number}}</td>
-                <td>{{s.model_technique}}</td>
 
-                <td>{{s.engine_model}}</td>
-                <td>{{s.engine_serial_number}}</td>
 
-                <td>{{s.transmission_model}}</td>
-                <td>{{s.transmission_serial_numbers}}</td>
+                <td><a href="{% url 'car_detail' pk=car.id %}">{{car.factory_number}}</a></td>
+                <td>{{car.model_technique}}</td>
 
-                <td>{{s.model_drive_bridge}}</td>
-                <td>{{s.factory_number_drive_bridge}}</td>
+                <td>{{car.engine_model}}</td>
+                <td>{{car.engine_serial_number}}</td>
 
-                <td>{{s.controlled_bridge_model}}</td>
-                <td>{{s.factory_number_controlled_bridge}}</td>
+                <td>{{car.transmission_model}}</td>
+                <td>{{car.transmission_serial_numbers}}</td>
+
+                <td>{{car.model_drive_bridge}}</td>
+                <td>{{car.factory_number_drive_bridge}}</td>
+
+                <td>{{car.controlled_bridge_model}}</td>
+                <td>{{car.factory_number_controlled_bridge}}</td>
 
                 {% empty %}
                 <td>данных о машине с таким заводским номером нет в системе</td>

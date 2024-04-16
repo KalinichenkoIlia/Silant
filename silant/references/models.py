@@ -101,7 +101,7 @@ class RecoveryMethod(models.Model):
 
 
 class ServiceCompany(models.Model):
-    profile = models.OneToOneField(Profile, on_delete=models.PROTECT, verbose_name='Профиль пользователя')
+    profile = models.OneToOneField(Profile, on_delete=models.PROTECT, verbose_name='Профиль сервисной компании ')
     title = models.CharField(max_length=128, verbose_name='Название')
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
 

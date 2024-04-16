@@ -17,7 +17,7 @@
         <nav>
             {% if request.user.is_authenticated %}
             <span> {{ user }}</span>
-        <a class="navbar-brand" href="{% url 'account_logout' %}">
+        <a class="account_logout" href="{% url 'account_logout' %}">
             <button>Выход</button>
         </a>
             {% elif not request.user.is_authenticated %}

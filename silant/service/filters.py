@@ -5,16 +5,19 @@ import django_filters
 
 
 class CarFilter(django_filters.FilterSet):
+
     factory_number = django_filters.CharFilter(
+        method='filter',
         field_name="factory_number",
         label="Зав.номер машины",
-        widget=TextInput(attrs={'class': 'form-control'}),
-
+        widget=TextInput(
+            attrs={'class': 'form-control'}),
     )
     model_technique = django_filters.ModelChoiceFilter(
         field_name="model_technique",
         label='Модель техники',
-        widget=Select(attrs={'class': 'form-select'}),
+        widget=Select(
+            attrs={'class': 'form-select'}),
         queryset=models.ModelTechnique.objects.all()
     )
     engine_model = django_filters.ModelChoiceFilter(

@@ -1,10 +1,16 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, View
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import PermissionRequiredMixin, AccessMixin
 from .models import Car, Complaints, TechnicalMaintenance
 from .filters import CarFilter, TechnicalServiceFilter, ComplaintsFilter
 from django.db.models import Q
 from references.models import ServiceCompany
+from rest_framework import permissions
+from django.http import HttpResponse, HttpResponseForbidden
+from .mixins import CustomPermissionRequiredMixin
+from django.urls import reverse_lazy
+from .forms import CreateCarForm, CreateTechnicalMaintenanceForm, CreateComplaints
 
 
 class HomePage(ListView):
@@ -63,21 +69,89 @@ class HomePage(ListView):
         return context
 
 
-class CarDetail(PermissionRequiredMixin, DetailView):
+class CarDetail(CustomPermissionRequiredMixin, DetailView):
     permission_required = 'service.view_car'
     model = Car
     template_name = 'car.html'
     context_object_name = 'car'
 
-    def has_permission(self):
-        car_id = self.request.GET
-        user = self.request.user.id
-        print(car_id)
 
-        if not self.request.user.is_staff or user == Car.objects.filter(car=car_id).order_by('user_id'):
-            return True
-
-
+class CarCreate(PermissionRequiredMixin, CreateView):
+    permission_required = 'service.add_car'
+    model = Car
+    form_class = CreateCarForm
+    template_name = 'car_create.html'
+    context_object_name = 'car_create.html'
 
 
+class CarUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = 'service.change_car'
+    form_class = CreateCarForm
+    template_name = 'car_create.html'
+    model = Car
+
+
+class CarDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = 'service.delete_car'
+    model = Car
+    template_name = 'car_delete.html'
+    success_url = reverse_lazy('/', )
+
+
+class TechnicalMaintenanceDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'service.view_technical_service'
+    model = TechnicalMaintenance
+    template_name = 'technical_service.html'
+    context_object_name = 'technical_service'
+
+
+class TechnicalMaintenanceCreate(PermissionRequiredMixin, CreateView):
+    permission_required = 'service.add_technical_service'
+    model = TechnicalMaintenance
+    form_class = CreateTechnicalMaintenanceForm
+    template_name = 'technical_service_create.html'
+    context_object_name = 'technical_service_create'
+
+
+class TechnicalMaintenanceUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = 'service.change_technical_service'
+    template_name = 'create_technical_service.html'
+    form_class = CreateTechnicalMaintenanceForm
+    model = TechnicalMaintenance
+
+
+class TechnicalMaintenanceDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = 'service.delete_technical_service'
+    model = TechnicalMaintenance
+    template_name = 'technical_service_delete.html'
+    success_url = reverse_lazy('/', )
+
+
+class ComplaintsDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'service.view_complaints'
+    model = Complaints
+    template_name = 'complaints.html'
+    context_object_name = 'complaints'
+
+
+class ComplaintsCreate(PermissionRequiredMixin, CreateView):
+    permission_required = 'service.add_complaints'
+    model = Complaints
+    form_class = CreateComplaints
+    template_name = 'complaints_create.html'
+    context_object_name = 'complaints_create'
+
+
+class ComplaintsUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = 'service.change_complaints'
+    template_name = 'complaints_create.html'
+    form_class = CreateComplaints
+    model = Complaints
+
+
+class ComplaintsDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = 'service.delete_complaints'
+    model = Complaints
+    template_name = 'complaints_delete.html'
+    success_url = reverse_lazy('/', )
 

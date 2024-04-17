@@ -14,7 +14,7 @@ Silant
 {% endif %}
 <div class="tabs_forms">
     <div class="form " data-tab="car">
-        <form action="/" method="get">
+        <form class="form_car" action="" method="get">
             {% if request.user.is_authenticated %}
             {{ filter_car.form.as_p }}
             {% else %}
@@ -23,7 +23,7 @@ Silant
 
             <input class="submit_form" type="submit" value="Найти" data-tab="car"/>
         </form>
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Зав.номер машины</th>
@@ -46,10 +46,9 @@ Silant
             <tbody>
             {% if filter_car %}
             {% for car in filter_car.qs %}
-            <tr>
+            <tr onclick="window.location=`{% url 'car_detail' pk=car.id %}`">
 
-
-                <td><a href="{% url 'car_detail' pk=car.id %}">{{car.factory_number}}</a></td>
+                <td>{{car.factory_number}}</td>
                 <td>{{car.model_technique}}</td>
 
                 <td>{{car.engine_model}}</td>
@@ -73,13 +72,13 @@ Silant
         </table>
     </div>
     <div class="form" data-tab="technical_service">
-        <form action="/" method="get">
+        <form action="" method="get">
 
             {{ filter_technical_service.form.as_p }}
 
             <input class="submit_form" type="submit" value="Найти" data-tab="technical_service"/>
         </form>
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Зав.номер машины</th>
@@ -96,17 +95,17 @@ Silant
 
             <tbody>
             {% if filter_technical_service %}
-            {% for i in filter_technical_service.qs %}
-            <tr>
-                <td>{{i.car.factory_number}}</td>
-                <td>{{i.date_event}}</td>
-                <td>{{i.type_maintenance}}</td>
+            {% for service in filter_technical_service.qs %}
+            <tr onclick="window.location=`{% url 'technical_service_detail' pk=service.id %}`">
+                <td>{{service.car.factory_number}}</td>
+                <td>{{service.date_event}}</td>
+                <td>{{service.type_maintenance}}</td>
                 <td>{{i.order_number}}</td>
-                <td>{{i.date_order}}</td>
-                <td>{{i.operating_time}}</td>
-                <td>{{i.order_number}}</td>
-                <td>{{i.organization_maintenance}}</td>
-                <td>{{i.service_company}}</td>
+                <td>{{service.date_order}}</td>
+                <td>{{service.operating_time}}</td>
+                <td>{{service.order_number}}</td>
+                <td>{{service.organization_maintenance}}</td>
+                <td>{{service.service_company}}</td>
                 {% empty %}
                 <td>данных о машине с таким заводским номером нет в системе</td>
             </tr>
@@ -116,13 +115,13 @@ Silant
         </table>
     </div>
     <div class="form" data-tab="complaints">
-        <form action="/" method="get">
+        <form action="" method="get">
 
             {{ filter_complaints.form.as_p }}
 
             <input class="submit_form" type="submit" value="Найти" data-tab="complaints"/>
         </form>
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Модель техники</th>
@@ -137,16 +136,16 @@ Silant
 
             <tbody>
             {% if filter_complaints %}
-            {% for el in filter_complaints.qs %}
-            <tr>
-                <td>{{el.car.model_technique}}</td>
-                <td>{{el.car.factory_number}}</td>
-                <td>{{el.service_company}}</td>
-                <td>{{el.date_refusal}}</td>
-                <td>{{el.equipment_downtime}}</td>
+            {% for complaint in filter_complaints.qs %}
+            <tr onclick="window.location=`{% url 'complaints_detail' pk=complaint.id %}`">
+                <td>{{complaint.car.model_technique}}</td>
+                <td>{{complaint.car.factory_number}}</td>
+                <td>{{complaint.service_company}}</td>
+                <td>{{complaint.date_refusal}}</td>
+                <td>{{complaint.equipment_downtime}}</td>
 
-                <td>{{el.date_restoration}}</td>
-                <td>{{el.recovery_method}}</td>
+                <td>{{complaint.date_restoration}}</td>
+                <td>{{complaint.recovery_method}}</td>
 
                 {% empty %}
                 <td>данных о машине с таким заводским номером нет в системе</td>

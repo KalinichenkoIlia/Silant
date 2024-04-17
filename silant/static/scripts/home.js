@@ -39,12 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setActiveForm(getActiveButtonName())
             })
         })
-        document.querySelectorAll('.submit_form').forEach(submit => {
-            submit.addEventListener('click', () => {
 
-
-            })
-        })
     }
     tabs()
     document.querySelector('.account_logout').addEventListener('click', () => {

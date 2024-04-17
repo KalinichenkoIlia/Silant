@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Silat</title>
+    <title>{% block title %}Silant{% endblock title %}</title>
     {% load static %}
     {% load account %}
 
-    <link href="{% static 'styles/default.css' %}" rel="stylesheet">
-    <link href="{% static 'styles/home.css' %}" rel="stylesheet" >
+    <link href="{% static 'styles/home.css' %}" rel="stylesheet">
+    <link href="{% static 'styles/base.css' %}" rel="stylesheet" >
 </head>
 <body>
 <header>
@@ -31,7 +31,7 @@
 </header>
 <main>
     {% block content %}
-     {{ search.content }}
+     {{ base.content }}
     {% endblock content %}
 </main>
 <footer>

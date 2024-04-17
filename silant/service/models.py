@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Profile
+from django.urls import reverse
 
 import references.models as references
 
@@ -41,6 +42,9 @@ class Car(models.Model):
     def __str__(self):
         return f'{self.model_technique}: {self.client}'
 
+    def get_absolute_url(self):
+        return reverse('car_detail', args=[str(self.id)])
+
 
 class TechnicalMaintenance(models.Model):
     type_maintenance = models.ForeignKey(references.TypeMaintenance, on_delete=models.PROTECT, verbose_name='Вид ТО')
@@ -61,6 +65,9 @@ class TechnicalMaintenance(models.Model):
     def __str__(self):
         return f'{self.car}: {self.service_company}'
 
+    def get_absolute_url(self):
+        return reverse('technical_service_detail', args=[str(self.id)])  # FIXME ignore hidden messages
+
 
 class Complaints(models.Model):
     date_refusal = models.DateField(auto_now_add=False, verbose_name='Дата отказа')
@@ -70,7 +77,7 @@ class Complaints(models.Model):
     recovery_method = models.ForeignKey(references.RecoveryMethod, on_delete=models.PROTECT,
                                         verbose_name='Способ восстановления')
     list_spare_parts = models.TextField(verbose_name='Используемые запасные части')
-    date_restoration = models.DateField(default='В ремонте', auto_now_add=False, blank=True, null=True, verbose_name='Дата восстановления')
+    date_restoration = models.DateField(auto_now_add=False, blank=True, null=True, verbose_name='Дата восстановления')
     equipment_downtime = models.IntegerField(blank=True, null=True, verbose_name='Время простоя техники')
     car = models.ForeignKey(Car, on_delete=models.PROTECT, verbose_name='Mашина')
     service_company = models.ForeignKey(references.ServiceCompany, on_delete=models.PROTECT,
@@ -90,3 +97,7 @@ class Complaints(models.Model):
 
     def __str__(self):
         return f'{self.car}: {self.service_company}'
+
+    def get_absolute_url(self):
+        return reverse('complaints_detail', args=[str(self.id)])
+

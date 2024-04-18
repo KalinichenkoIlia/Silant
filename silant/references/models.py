@@ -12,7 +12,7 @@ class ModelTechnique(models.Model):
         verbose_name_plural = 'Модель техники'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class EngineModel(models.Model):
@@ -24,7 +24,7 @@ class EngineModel(models.Model):
         verbose_name_plural = 'Двигатели'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class TransmissionModel(models.Model):
@@ -37,7 +37,7 @@ class TransmissionModel(models.Model):
         verbose_name_plural = 'Модель трансмиссии'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class ModelDriveBridge(models.Model):
@@ -49,7 +49,7 @@ class ModelDriveBridge(models.Model):
         verbose_name_plural = 'Модель ведущего моста'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class ControlledBridgeModel(models.Model):
@@ -61,7 +61,7 @@ class ControlledBridgeModel(models.Model):
         verbose_name_plural = 'Модель управляемого моста'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class TypeMaintenance(models.Model):
@@ -73,7 +73,7 @@ class TypeMaintenance(models.Model):
         verbose_name_plural = 'Вид ТО'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class FailureNode(models.Model):
@@ -85,7 +85,7 @@ class FailureNode(models.Model):
         verbose_name_plural = 'Узел отказа'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class RecoveryMethod(models.Model):
@@ -97,7 +97,7 @@ class RecoveryMethod(models.Model):
         verbose_name_plural = 'Способ восстановления'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class ServiceCompany(models.Model):
@@ -110,7 +110,7 @@ class ServiceCompany(models.Model):
         verbose_name_plural = 'Сервисные компании'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'
 
 
 class OrganizationMaintenance(models.Model):
@@ -122,4 +122,4 @@ class OrganizationMaintenance(models.Model):
         verbose_name_plural = 'Организация, проводившая ТО'
 
     def __str__(self):
-        return f'{self.title}: {self.description}'
+        return f'{self.title} {self.description}'

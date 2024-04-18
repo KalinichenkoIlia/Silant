@@ -4,7 +4,7 @@
   display: none;
 }
 
-.form_car {
+.filter {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -28,7 +28,6 @@
   background-color: $basic-color-silant;
   border: $basic-color-silant-blue solid 2px;
   border-radius: 10px;
-  width: 25%;
   height: 30px;
   font-family: Astra-Sans-Bold, sans-serif;
   font-size: 16px;
@@ -50,10 +49,12 @@
   height: 40px;
   border-radius: 5px;
   border: none;
+
   &:hover {
     cursor: pointer;
     opacity: 0.8;
   }
+
   &:active {
     opacity: 0.6;
   }
@@ -136,4 +137,12 @@
 
 .table tbody tr:last-child td:last-child {
   border-radius: 0 0 20px 0;
+}
+
+.wrapper {
+
+}
+
+.tabs_buttons {
+
 }

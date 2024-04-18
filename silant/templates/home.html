@@ -6,7 +6,10 @@ Silant
 
 {% block content %}
 {% if request.user.is_authenticated %}
-<nav class="tabs_buttons">
+<div class="wrapper">
+<h2>{{ user.username }}</h2>
+
+    <nav class="tabs_buttons">
     <button class="btn" data-tab="car"> Техника</button>
     <button class="btn" data-tab="technical_service">Тех.обслуживание</button>
     <button class="btn" data-tab="complaints">Рекламации</button>
@@ -14,7 +17,7 @@ Silant
 {% endif %}
 <div class="tabs_forms">
     <div class="form " data-tab="car">
-        <form class="form_car" action="" method="get">
+        <form class="filter" action="" method="get">
             {% if request.user.is_authenticated %}
             {{ filter_car.form.as_p }}
             {% else %}
@@ -72,7 +75,7 @@ Silant
         </table>
     </div>
     <div class="form" data-tab="technical_service">
-        <form action="" method="get">
+        <form class="filter" action="" method="get">
 
             {{ filter_technical_service.form.as_p }}
 
@@ -115,7 +118,7 @@ Silant
         </table>
     </div>
     <div class="form" data-tab="complaints">
-        <form action="" method="get">
+        <form class="filter" action="" method="get">
 
             {{ filter_complaints.form.as_p }}
 
@@ -124,10 +127,12 @@ Silant
         <table class="table">
             <thead>
             <tr>
+                <th>Дата отказа</th>
+                <th>Клиент</th>
                 <th>Модель техники</th>
                 <th>Зав.номер машины</th>
                 <th>Сервисная компания</th>
-                <th>Дата отказа</th>
+
                 <th>Время простоя дн</th>
                 <th>Дата восстановления</th>
                 <th>Способ восстановления</th>
@@ -138,10 +143,12 @@ Silant
             {% if filter_complaints %}
             {% for complaint in filter_complaints.qs %}
             <tr onclick="window.location=`{% url 'complaints_detail' pk=complaint.id %}`">
+                <td>{{complaint.date_refusal}}</td>
+                <td>{{complaint.car.client.user.first_name}}</td>
                 <td>{{complaint.car.model_technique}}</td>
                 <td>{{complaint.car.factory_number}}</td>
                 <td>{{complaint.service_company}}</td>
-                <td>{{complaint.date_refusal}}</td>
+
                 <td>{{complaint.equipment_downtime}}</td>
 
                 <td>{{complaint.date_restoration}}</td>
@@ -155,6 +162,8 @@ Silant
             </tbody>
         </table>
     </div>
+</div>
+
 </div>
 
 

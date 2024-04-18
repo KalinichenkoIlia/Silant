@@ -1,23 +1,23 @@
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import PermissionRequiredMixin, AccessMixin
-from .models import Car, Complaints, TechnicalMaintenance
-from .filters import CarFilter, TechnicalServiceFilter, ComplaintsFilter
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
-from references.models import ServiceCompany
-from rest_framework import permissions
-from django.http import HttpResponse, HttpResponseForbidden
-from .mixins import CustomPermissionRequiredMixin
 from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from .filters import CarFilter, TechnicalServiceFilter, ComplaintsFilter
 from .forms import CreateCarForm, CreateTechnicalMaintenanceForm, CreateComplaints
+from .mixins import CustomPermissionRequiredMixin
+from .models import Car, Complaints, TechnicalMaintenance
 
 
 class HomePage(ListView):
     template_name = 'home.html'
 
     def get_queryset(self):
+        """
+        фильтрация и получение объектов моделей по связям
+        пользователя с моделью
 
+        """
         self.technical_service = TechnicalMaintenance.objects.filter(Q(
             car__client__user=self.request.user.id) | Q(
             service_company__profile__user=self.request.user.id))
@@ -31,8 +31,12 @@ class HomePage(ListView):
             service_company__profile__user=self.request.user.id))
 
         if self.request.user.is_authenticated:
-            if self.request.user.is_staff:
-
+            if self.request.user.is_staff or self.request.user.profile == 'MG':
+                """
+                только для менеджера или администратора 
+                объекты модели будут все 
+                
+                """
                 self.car = Car.objects.all()
                 self.technical_service = TechnicalMaintenance.objects.all()
                 self.complaints = Complaints.objects.all()
@@ -50,10 +54,11 @@ class HomePage(ListView):
             self.filter_complaints = ComplaintsFilter(
                 self.request.GET,
                 queryset=self.complaints)
+
             return self.filter_car.qs, self.filter_technical_service.qs, self.filter_complaints.qs
 
         else:
-            self.filter_car = CarFilter(
+            self.filter_car = CarFilter(  # фильтр для неавторизованных
                 self.request.GET,
                 queryset=Car.objects.all(),
                 prefix='car')
@@ -61,7 +66,7 @@ class HomePage(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
+        if self.request.user.is_authenticated:  # сонтекст доступный только для авторизованных
             context['filter_technical_service'] = self.filter_technical_service
             context['filter_complaints'] = self.filter_complaints
 
@@ -98,7 +103,7 @@ class CarDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('/', )
 
 
-class TechnicalMaintenanceDetail(PermissionRequiredMixin, DetailView):
+class TechnicalMaintenanceDetail(CustomPermissionRequiredMixin, DetailView):
     permission_required = 'service.view_technical_service'
     model = TechnicalMaintenance
     template_name = 'technical_service.html'
@@ -127,7 +132,7 @@ class TechnicalMaintenanceDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('/', )
 
 
-class ComplaintsDetail(PermissionRequiredMixin, DetailView):
+class ComplaintsDetail(CustomPermissionRequiredMixin, DetailView):
     permission_required = 'service.view_complaints'
     model = Complaints
     template_name = 'complaints.html'
@@ -154,4 +159,3 @@ class ComplaintsDelete(PermissionRequiredMixin, DeleteView):
     model = Complaints
     template_name = 'complaints_delete.html'
     success_url = reverse_lazy('/', )
-

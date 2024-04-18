@@ -40,7 +40,10 @@ class Car(models.Model):
         verbose_name_plural = 'Машины'
 
     def __str__(self):
-        return f'{self.model_technique}: {self.client}'
+        return f'{self.model_technique} {self.client} {self.factory_number}'
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self._get_pk_val() == other._get_pk_val()
 
     def get_absolute_url(self):
         return reverse('car_detail', args=[str(self.id)])
@@ -63,7 +66,7 @@ class TechnicalMaintenance(models.Model):
         verbose_name_plural = 'Техническое обслуживание'
 
     def __str__(self):
-        return f'{self.car}: {self.service_company}'
+        return f'{self.car} {self.service_company}'
 
     def get_absolute_url(self):
         return reverse('technical_service_detail', args=[str(self.id)])  # FIXME ignore hidden messages
@@ -96,7 +99,7 @@ class Complaints(models.Model):
             super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.car}: {self.service_company}'
+        return f'{self.car} {self.service_company}'
 
     def get_absolute_url(self):
         return reverse('complaints_detail', args=[str(self.id)])

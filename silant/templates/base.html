@@ -16,7 +16,7 @@
         <img class="logo" src="{% static 'images/logo.svg' %}" alt="LOGO">
         <nav>
             {% if request.user.is_authenticated %}
-            <span> {{ user }}</span>
+            <span> {{ user.username }}</span>
         <a class="account_logout" href="{% url 'account_logout' %}">
             <button>Выход</button>
         </a>

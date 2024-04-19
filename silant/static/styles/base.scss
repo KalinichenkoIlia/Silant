@@ -17,18 +17,20 @@ body {
   max-width: 1440px;
   margin: 0 auto;
   padding: 0;
-  background-color: $basic-color-silant;
-
+  background-color: white;
 }
 
 header {
   max-width: 1440px;
   height: 90px;
   width: 100vw;
+  background-color: $basic-color-silant;
 }
 main {
-  margin: 30px 0 0 0;
+  width: 100%;
   flex: 1 0 auto;
+  background-color: $basic-color-silant;
+
 }
 footer {
   flex: 0 0 auto;
@@ -46,4 +48,38 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 0 30px 0 30px;
+}
+.header-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $basic-color-silant-blue;
+  h1 {
+    font-family: Astra-Sans-Bold, sans-serif;
+    margin-top: 0;
+  }
+  font-family: PT-Astra-Sans_Bold-Italic, sans-serif;
+}
+.button-general {
+   background-color: $basic-color-silant-blue;
+  color: $basic-color-silant;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+}
+.username {
+  font-size: 18px;
+  font-family: PT-Astra-Sans_Regular, sans-serif;
+  margin: 0 40px 0 0;
 }

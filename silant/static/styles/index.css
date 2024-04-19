@@ -6,21 +6,21 @@
 }
 
 @font-face {
-    font-family: 'Astra-Sans-Bold';
+    font-family: 'PT-Astra-Sans_Bold-Italic';
     font-style: normal;
     font-weight: normal;
     src: local('PT-Astra-Sans_Bold-Italic.ttf'), url("../fonts/PT-Astra-Sans_Bold-Italic.ttf") format('ttf');
 }
 
 @font-face {
-    font-family: 'Astra-Sans-Bold';
+    font-family: 'PT-Astra-Sans_Italic';
     font-style: normal;
     font-weight: normal;
     src: local('PT-Astra-Sans_Italic.ttf'), url("../fonts/PT-Astra-Sans_Italic.ttf") format('ttf');
 }
 
 @font-face {
-    font-family: 'Astra-Sans-Bold';
+    font-family: 'PT-Astra-Sans_Regular';
     font-style: normal;
     font-weight: normal;
     src: local('PT-Astra-Sans_Regular.ttf'), url("../fonts/PT-Astra-Sans_Regular.ttf") format('ttf');

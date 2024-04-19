@@ -6,163 +6,166 @@ Silant
 
 {% block content %}
 {% if request.user.is_authenticated %}
-<div class="wrapper">
-<h2>{{ user.username }}</h2>
+<div class="home-wrapper">
 
-    <nav class="tabs_buttons">
-    <button class="btn" data-tab="car"> Техника</button>
-    <button class="btn" data-tab="technical_service">Тех.обслуживание</button>
-    <button class="btn" data-tab="complaints">Рекламации</button>
-</nav>
-{% endif %}
-<div class="tabs_forms">
-    <div class="form " data-tab="car">
-        <form class="filter" action="" method="get">
-            {% if request.user.is_authenticated %}
-            {{ filter_car.form.as_p }}
-            {% else %}
-            {{ filter_car.form.factory_number }}
-            {% endif %}
 
-            <input class="submit_form" type="submit" value="Найти" data-tab="car"/>
-        </form>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Зав.номер машины</th>
-                <th>Модель техники</th>
+    <nav class="home-tabs">
+        <nav class="tabs-buttons">
+            <button class="btn" data-tab="car"> Техника</button>
+            <button class="btn" data-tab="technical_service">Тех.обслуживание</button>
+            <button class="btn" data-tab="complaints">Рекламации</button>
+        </nav>
 
-                <th>Модель двигателя</th>
-                <th>Зав. № двигателя</th>
+        <h2>{{ user.first_name }}</h2>
 
-                <th>Модель трансмиссии</th>
-                <th>Зав. № трансмиссии</th>
+    </nav>
+    {% endif %}
+    <div class="tabs_forms">
+        <div class="form " data-tab="car">
+            <form class="filter" action="" method="get">
+                {% if request.user.is_authenticated %}
+                {{ filter_car.form.as_p }}
+                {% else %}
+                {{ filter_car.form.factory_number }}
+                {% endif %}
 
-                <th>Модель ведущего моста</th>
-                <th>Зав. № ведущего моста</th>
+                <input class="button-general" type="submit" value="Найти" data-tab="car"/>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Зав.номер машины</th>
+                    <th>Модель техники</th>
 
-                <th>Модель управляемого моста</th>
-                <th>Зав. № управляемого моста</th>
-            </tr>
-            </thead>
+                    <th>Модель двигателя</th>
+                    <th>Зав. № двигателя</th>
 
-            <tbody>
-            {% if filter_car %}
-            {% for car in filter_car.qs %}
-            <tr onclick="window.location=`{% url 'car_detail' pk=car.id %}`">
+                    <th>Модель трансмиссии</th>
+                    <th>Зав. № трансмиссии</th>
 
-                <td>{{car.factory_number}}</td>
-                <td>{{car.model_technique}}</td>
+                    <th>Модель ведущего моста</th>
+                    <th>Зав. № ведущего моста</th>
 
-                <td>{{car.engine_model}}</td>
-                <td>{{car.engine_serial_number}}</td>
+                    <th>Модель управляемого моста</th>
+                    <th>Зав. № управляемого моста</th>
+                </tr>
+                </thead>
 
-                <td>{{car.transmission_model}}</td>
-                <td>{{car.transmission_serial_numbers}}</td>
+                <tbody>
+                {% if filter_car %}
+                {% for car in filter_car.qs %}
+                <tr onclick="window.location=`{% url 'car_detail' pk=car.id %}`">
 
-                <td>{{car.model_drive_bridge}}</td>
-                <td>{{car.factory_number_drive_bridge}}</td>
+                    <td>{{car.factory_number}}</td>
+                    <td>{{car.model_technique}}</td>
 
-                <td>{{car.controlled_bridge_model}}</td>
-                <td>{{car.factory_number_controlled_bridge}}</td>
+                    <td>{{car.engine_model}}</td>
+                    <td>{{car.engine_serial_number}}</td>
 
-                {% empty %}
-                <td>данных о машине с таким заводским номером нет в системе</td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-            </tbody>
-        </table>
+                    <td>{{car.transmission_model}}</td>
+                    <td>{{car.transmission_serial_numbers}}</td>
+
+                    <td>{{car.model_drive_bridge}}</td>
+                    <td>{{car.factory_number_drive_bridge}}</td>
+
+                    <td>{{car.controlled_bridge_model}}</td>
+                    <td>{{car.factory_number_controlled_bridge}}</td>
+
+                    {% empty %}
+                    <td>данных о машине с таким заводским номером нет в системе</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="form" data-tab="technical_service">
+            <form class="filter" action="" method="get">
+
+                {{ filter_technical_service.form.as_p }}
+
+                <input class="button-general" type="submit" value="Найти" data-tab="technical_service"/>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Зав.номер машины</th>
+                    <th>Дата проведения ТО</th>
+                    <th>Вид ТО</th>
+                    <th>№ заказ-наряда</th>
+                    <th>Дата заказ-наряда</th>
+                    <th>Наработка, м/час</th>
+                    <th>№ заказ-наряда</th>
+                    <th>Организация, проводившая ТО</th>
+                    <th>Сервисная компания</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% if filter_technical_service %}
+                {% for service in filter_technical_service.qs %}
+                <tr onclick="window.location=`{% url 'technical_service_detail' pk=service.id %}`">
+                    <td>{{service.car.factory_number}}</td>
+                    <td>{{service.date_event}}</td>
+                    <td>{{service.type_maintenance}}</td>
+                    <td>{{i.order_number}}</td>
+                    <td>{{service.date_order}}</td>
+                    <td>{{service.operating_time}}</td>
+                    <td>{{service.order_number}}</td>
+                    <td>{{service.organization_maintenance}}</td>
+                    <td>{{service.service_company}}</td>
+                    {% empty %}
+                    <td>данных о машине с таким заводским номером нет в системе</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="form" data-tab="complaints">
+            <form class="filter" action="" method="get">
+
+                {{ filter_complaints.form.as_p }}
+
+                <input class="button-general" type="submit" value="Найти" data-tab="complaints"/>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Дата отказа</th>
+                    <th>Клиент</th>
+                    <th>Модель техники</th>
+                    <th>Зав.номер машины</th>
+                    <th>Сервисная компания</th>
+
+                    <th>Время простоя дн</th>
+                    <th>Дата восстановления</th>
+                    <th>Способ восстановления</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% if filter_complaints %}
+                {% for complaint in filter_complaints.qs %}
+                <tr onclick="window.location=`{% url 'complaints_detail' pk=complaint.id %}`">
+                    <td>{{complaint.date_refusal}}</td>
+                    <td>{{complaint.car.client.user.first_name}}</td>
+                    <td>{{complaint.car.model_technique}}</td>
+                    <td>{{complaint.car.factory_number}}</td>
+                    <td>{{complaint.service_company}}</td>
+                    <td>{{complaint.equipment_downtime}}</td>
+                    <td>{{complaint.date_restoration}}</td>
+                    <td>{{complaint.recovery_method}}</td>
+
+                    {% empty %}
+                    <td>данных о машине с таким заводским номером нет в системе</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="form" data-tab="technical_service">
-        <form class="filter" action="" method="get">
-
-            {{ filter_technical_service.form.as_p }}
-
-            <input class="submit_form" type="submit" value="Найти" data-tab="technical_service"/>
-        </form>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Зав.номер машины</th>
-                <th>Дата проведения ТО</th>
-                <th>Вид ТО</th>
-                <th>№ заказ-наряда</th>
-                <th>Дата заказ-наряда</th>
-                <th>Наработка, м/час</th>
-                <th>№ заказ-наряда</th>
-                <th>Организация, проводившая ТО</th>
-                <th>Сервисная компания</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            {% if filter_technical_service %}
-            {% for service in filter_technical_service.qs %}
-            <tr onclick="window.location=`{% url 'technical_service_detail' pk=service.id %}`">
-                <td>{{service.car.factory_number}}</td>
-                <td>{{service.date_event}}</td>
-                <td>{{service.type_maintenance}}</td>
-                <td>{{i.order_number}}</td>
-                <td>{{service.date_order}}</td>
-                <td>{{service.operating_time}}</td>
-                <td>{{service.order_number}}</td>
-                <td>{{service.organization_maintenance}}</td>
-                <td>{{service.service_company}}</td>
-                {% empty %}
-                <td>данных о машине с таким заводским номером нет в системе</td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-            </tbody>
-        </table>
-    </div>
-    <div class="form" data-tab="complaints">
-        <form class="filter" action="" method="get">
-
-            {{ filter_complaints.form.as_p }}
-
-            <input class="submit_form" type="submit" value="Найти" data-tab="complaints"/>
-        </form>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Дата отказа</th>
-                <th>Клиент</th>
-                <th>Модель техники</th>
-                <th>Зав.номер машины</th>
-                <th>Сервисная компания</th>
-
-                <th>Время простоя дн</th>
-                <th>Дата восстановления</th>
-                <th>Способ восстановления</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            {% if filter_complaints %}
-            {% for complaint in filter_complaints.qs %}
-            <tr onclick="window.location=`{% url 'complaints_detail' pk=complaint.id %}`">
-                <td>{{complaint.date_refusal}}</td>
-                <td>{{complaint.car.client.user.first_name}}</td>
-                <td>{{complaint.car.model_technique}}</td>
-                <td>{{complaint.car.factory_number}}</td>
-                <td>{{complaint.service_company}}</td>
-
-                <td>{{complaint.equipment_downtime}}</td>
-
-                <td>{{complaint.date_restoration}}</td>
-                <td>{{complaint.recovery_method}}</td>
-
-                {% empty %}
-                <td>данных о машине с таким заводским номером нет в системе</td>
-            </tr>
-            {% endfor %}
-            {% endif %}
-            </tbody>
-        </table>
-    </div>
-</div>
 
 </div>
 

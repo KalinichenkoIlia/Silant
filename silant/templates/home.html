@@ -21,149 +21,162 @@ Silant
     </nav>
     {% endif %}
     <div class="tabs_forms">
-        <div class="form " data-tab="car">
+
+        <div {% if not request.user.is_authenticated %}  class="form-non-auth form"  {% endif %} class="form " data-tab="car">
             <form class="filter" action="" method="get">
                 {% if request.user.is_authenticated %}
                 {{ filter_car.form.as_p }}
+                <input class="home-input-filter" type="submit" value="Найти" data-tab="car"/>
                 {% else %}
-                {{ filter_car.form.factory_number }}
+                <nav class="filter-non-auth">
+                    {{ filter_car.form.factory_number }}
+                    <input class="input-non-auth" type="submit" value="Найти" data-tab="car"/>
+                </nav>
+
                 {% endif %}
 
-                <input class="button-general" type="submit" value="Найти" data-tab="car"/>
+
             </form>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Зав.номер машины</th>
-                    <th>Модель техники</th>
+            <div class="home-wrapper-table">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Зав.номер машины</th>
+                        <th>Модель техники</th>
 
-                    <th>Модель двигателя</th>
-                    <th>Зав. № двигателя</th>
+                        <th>Модель двигателя</th>
+                        <th>Зав. № двигателя</th>
 
-                    <th>Модель трансмиссии</th>
-                    <th>Зав. № трансмиссии</th>
+                        <th>Модель трансмиссии</th>
+                        <th>Зав. № трансмиссии</th>
 
-                    <th>Модель ведущего моста</th>
-                    <th>Зав. № ведущего моста</th>
+                        <th>Модель ведущего моста</th>
+                        <th>Зав. № ведущего моста</th>
 
-                    <th>Модель управляемого моста</th>
-                    <th>Зав. № управляемого моста</th>
-                </tr>
-                </thead>
+                        <th>Модель управляемого моста</th>
+                        <th>Зав. № управляемого моста</th>
+                    </tr>
+                    </thead>
 
-                <tbody>
-                {% if filter_car %}
-                {% for car in filter_car.qs %}
-                <tr onclick="window.location=`{% url 'car_detail' pk=car.id %}`">
+                    <tbody>
+                    {% if filter_car %}
+                    {% for car in filter_car.qs %}
+                    <tr onclick="window.location=`{% url 'car_detail' pk=car.id %}`">
 
-                    <td>{{car.factory_number}}</td>
-                    <td>{{car.model_technique}}</td>
+                        <td data-label='Зав.номер машины'>{{car.factory_number}}</td>
+                        <td data-label='Зав.номер машины'>{{car.model_technique}}</td>
 
-                    <td>{{car.engine_model}}</td>
-                    <td>{{car.engine_serial_number}}</td>
+                        <td data-label='Модель техники'>{{car.engine_model}}</td>
+                        <td data-label='Зав. № двигателя'>{{car.engine_serial_number}}</td>
 
-                    <td>{{car.transmission_model}}</td>
-                    <td>{{car.transmission_serial_numbers}}</td>
+                        <td data-label='Модель трансмиссии'>{{car.transmission_model}}</td>
+                        <td data-label='Зав. № трансмиссии'>{{car.transmission_serial_numbers}}</td>
 
-                    <td>{{car.model_drive_bridge}}</td>
-                    <td>{{car.factory_number_drive_bridge}}</td>
+                        <td data-label='Модель ведущего моста'>{{car.model_drive_bridge}}</td>
+                        <td data-label='Зав. № ведущего моста'>{{car.factory_number_drive_bridge}}</td>
 
-                    <td>{{car.controlled_bridge_model}}</td>
-                    <td>{{car.factory_number_controlled_bridge}}</td>
+                        <td data-label='Модель управляемого моста'>{{car.controlled_bridge_model}}</td>
+                        <td data-label='Зав. № управляемого моста'>{{car.factory_number_controlled_bridge}}</td>
 
-                    {% empty %}
-                    <td>данных о машине с таким заводским номером нет в системе</td>
-                </tr>
-                {% endfor %}
-                {% endif %}
-                </tbody>
-            </table>
+                        {% empty %}
+                        <td>данных о машине с таким заводским номером нет в системе</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="form" data-tab="technical_service">
             <form class="filter" action="" method="get">
 
                 {{ filter_technical_service.form.as_p }}
 
-                <input class="button-general" type="submit" value="Найти" data-tab="technical_service"/>
+                <input class="home-input-filter" type="submit" value="Найти" data-tab="technical_service"/>
             </form>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Зав.номер машины</th>
-                    <th>Дата проведения ТО</th>
-                    <th>Вид ТО</th>
-                    <th>№ заказ-наряда</th>
-                    <th>Дата заказ-наряда</th>
-                    <th>Наработка, м/час</th>
-                    <th>№ заказ-наряда</th>
-                    <th>Организация, проводившая ТО</th>
-                    <th>Сервисная компания</th>
-                </tr>
-                </thead>
+            <div class="home-wrapper-table">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Зав.номер машины</th>
+                        <th>Дата проведения ТО</th>
+                        <th>Вид ТО</th>
+                        <th>№ заказ-наряда</th>
+                        <th>Дата заказ-наряда</th>
+                        <th>Наработка, м/час</th>
+                        <th>№ заказ-наряда</th>
+                        <th>Организация, проводившая ТО</th>
+                        <th>Сервисная компания</th>
+                    </tr>
+                    </thead>
 
-                <tbody>
-                {% if filter_technical_service %}
-                {% for service in filter_technical_service.qs %}
-                <tr onclick="window.location=`{% url 'technical_service_detail' pk=service.id %}`">
-                    <td>{{service.car.factory_number}}</td>
-                    <td>{{service.date_event}}</td>
-                    <td>{{service.type_maintenance}}</td>
-                    <td>{{i.order_number}}</td>
-                    <td>{{service.date_order}}</td>
-                    <td>{{service.operating_time}}</td>
-                    <td>{{service.order_number}}</td>
-                    <td>{{service.organization_maintenance}}</td>
-                    <td>{{service.service_company}}</td>
-                    {% empty %}
-                    <td>данных о машине с таким заводским номером нет в системе</td>
-                </tr>
-                {% endfor %}
-                {% endif %}
-                </tbody>
-            </table>
+                    <tbody>
+                    {% if filter_technical_service %}
+                    {% for service in filter_technical_service.qs %}
+                    <tr onclick="window.location=`{% url 'technical_service_detail' pk=service.id %}`">
+                        <td data-label='Зав.номер машины'>{{service.car.factory_number}}</td>
+                        <td data-label='Дата проведения ТО'>{{service.date_event}}</td>
+                        <td data-label='Вид ТО'>{{service.type_maintenance}}</td>
+                        <td data-label='№ заказ-наряда'>{{service.order_number}}</td>
+                        <td data-label='Дата заказ-наряда'>{{service.date_order}}</td>
+                        <td data-label='Наработка, м/час'>{{service.operating_time}}</td>
+                        <td data-label='№ заказ-наряда'>{{service.order_number}}</td>
+                        <td data-label='Организация, проводившая ТО'>{{service.organization_maintenance}}</td>
+                        <td data-label='Сервисная компания'>{{service.service_company}}</td>
+                        {% empty %}
+                        <td>данных о машине с таким заводским номером нет в системе</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="form" data-tab="complaints">
             <form class="filter" action="" method="get">
 
                 {{ filter_complaints.form.as_p }}
 
-                <input class="button-general" type="submit" value="Найти" data-tab="complaints"/>
+                <input class="home-input-filter" type="submit" value="Найти" data-tab="complaints"/>
             </form>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Дата отказа</th>
-                    <th>Клиент</th>
-                    <th>Модель техники</th>
-                    <th>Зав.номер машины</th>
-                    <th>Сервисная компания</th>
+            <div class="home-wrapper-table">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Дата отказа</th>
+                        <th>Клиент</th>
+                        <th>Модель техники</th>
+                        <th>Зав.номер машины</th>
+                        <th>Сервисная компания</th>
 
-                    <th>Время простоя дн</th>
-                    <th>Дата восстановления</th>
-                    <th>Способ восстановления</th>
-                </tr>
-                </thead>
+                        <th>Время простоя дн</th>
+                        <th>Дата восстановления</th>
+                        <th>Способ восстановления</th>
+                    </tr>
+                    </thead>
 
-                <tbody>
-                {% if filter_complaints %}
-                {% for complaint in filter_complaints.qs %}
-                <tr onclick="window.location=`{% url 'complaints_detail' pk=complaint.id %}`">
-                    <td>{{complaint.date_refusal}}</td>
-                    <td>{{complaint.car.client.user.first_name}}</td>
-                    <td>{{complaint.car.model_technique}}</td>
-                    <td>{{complaint.car.factory_number}}</td>
-                    <td>{{complaint.service_company}}</td>
-                    <td>{{complaint.equipment_downtime}}</td>
-                    <td>{{complaint.date_restoration}}</td>
-                    <td>{{complaint.recovery_method}}</td>
+                    <tbody>
+                    {% if filter_complaints %}
+                    {% for complaint in filter_complaints.qs %}
+                    <tr onclick="window.location=`{% url 'complaints_detail' pk=complaint.id %}`">
+                        <td data-label='Дата отказа'>{{complaint.date_refusal}}</td>
+                        <td data-label='Клиент'>{{complaint.car.client.user.first_name}}</td>
+                        <td data-label='Модель техники'>{{complaint.car.model_technique}}</td>
+                        <td data-label='Зав.номер машины'>{{complaint.car.factory_number}}</td>
+                        <td data-label='Сервисная компания'>{{complaint.service_company}}</td>
+                        <td data-label='Время простоя дн'>{{complaint.equipment_downtime}}</td>
+                        <td data-label='Дата восстановления'>{{complaint.date_restoration}}</td>
+                        <td data-label='Способ восстановления'>{{complaint.recovery_method}}</td>
 
-                    {% empty %}
-                    <td>данных о машине с таким заводским номером нет в системе</td>
-                </tr>
-                {% endfor %}
-                {% endif %}
-                </tbody>
-            </table>
+                        {% empty %}
+                        <td>данных о машине с таким заводским номером нет в системе</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 

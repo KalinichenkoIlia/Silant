@@ -18,14 +18,14 @@
             <p>+7 (8352)-20-12-09, Telegram</p>
             <h1>Электронная сервисная книжка "Мой Силант"</h1>
         </div>
-        <nav>
+        <nav >
             {% if request.user.is_authenticated %}
             <span class="username"> {{ user.username }}</span>
             <a class="account_logout" href="{% url 'account_logout' %}">
                 <button class="button-general">Выход</button>
             </a>
             {% elif not request.user.is_authenticated %}
-            <a class="navbar-brand" href="{% url 'account_login' %}">
+            <a class="account_login" href="{% url 'account_login' %}">
                 <button class="button-general">Вход</button>
             </a>
             {% endif %}

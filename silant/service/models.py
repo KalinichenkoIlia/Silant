@@ -76,7 +76,7 @@ class Complaints(models.Model):
     date_refusal = models.DateField(auto_now_add=False, verbose_name='Дата отказа')
     operating_time = models.IntegerField(default=0, verbose_name='Наработка, м/час')
     failure_node = models.ForeignKey(references.FailureNode, on_delete=models.PROTECT, verbose_name='Узел отказа')
-    description_failure = models.TextField(verbose_name='	Описание отказа')
+    description_failure = models.TextField(verbose_name='Описание отказа')
     recovery_method = models.ForeignKey(references.RecoveryMethod, on_delete=models.PROTECT,
                                         verbose_name='Способ восстановления')
     list_spare_parts = models.TextField(verbose_name='Используемые запасные части')

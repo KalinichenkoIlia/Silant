@@ -3,11 +3,79 @@
 {% load static %}
 
 {% block title %}
-    {{ complaints.description_failure }}
+{{ car.factory_number }}
 {% endblock title %}
 
 {% block content %}
-<h1>{{ complaints.description_failure }}</h1>
+<div class="wrapper-content">
+    {% if complaints %}
+    <h2> Рекламация вилочного погрузчика {{ complaints.car.model_technique }}({{ complaints.car.factory_number }})</h2>
+    <section>
+        <table class="entity_table">
+            <tbody>
+
+            <tr>
+                <td class="name"><span>Дата отказа</span></td>
+                <td class="cur">{{ complaints.date_refusal |date:'d-m-Y'}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Наработка, м/час</span></td>
+                <td class="cur">{{ complaints.operating_time }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Узел отказа</span></td>
+                <td class="cur">{{ complaints.failure_node }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Способ восстановления</span></td>
+                <td class="cur">{{ complaints.recovery_method }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание восстановления</span></td>
+                <td class="cur">{{ complaints.recovery_method.description }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Дата восстановления</span></td>
+                <td class="cur">{{ complaints.date_restoration |date:'d-m-Y'}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Время простоя техники</span></td>
+                <td class="cur">{{ complaints.equipment_downtime }} дн</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Сервисная компания</span></td>
+                <td class="cur">{{ complaints.service_company}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Слиент</span></td>
+                <td class="cur">{{ complaints.car.client.user.first_name}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Используемые запасные частит</span></td>
+                <td class="cur">{{ complaints.list_spare_parts}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание отказа</span></td>
+                <td class="cur">{{ complaints.description_failure}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </section>
+    <div class="content-editing">
+
+        <a href="http://127.0.0.1:8000/"><button> Назад </button></a>
+
+        {% if perms.service.change_complaints %}
+
+        <a href="{% url  'complaints_update' pk=complaints.id %}"><button>Редактировать</button></a>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+</div>
 
 
 {% endblock content %}

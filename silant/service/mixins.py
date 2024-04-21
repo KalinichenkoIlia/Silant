@@ -23,7 +23,7 @@ class CustomPermissionRequiredMixin(PermissionRequiredMixin):
 
         if self.request.user.is_authenticated:
 
-            if self.request.user.is_staff or self.request.user.profile == 'MG':
+            if self.request.user.is_staff or self.request.user.profile.position == 'MG':
                 return True
 
             elif instance_car and Car.objects.filter(Q(id=id_obj),

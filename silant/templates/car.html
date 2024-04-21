@@ -3,11 +3,186 @@
 {% load static %}
 
 {% block title %}
-    {{ car.model_technique }}
+{{ car.factory_number }}
 {% endblock title %}
 
 {% block content %}
-<h1>{{ car }}</h1>
+<div class="wrapper-content">
+    {% if car %}
+    <h2> Вилочный погрузчик Силант {{ car.model_technique }}</h2>
+    <section>
+
+        <table class="entity_table">
+            <tbody>
+            {% if request.user.is_authenticated %}
+            <tr>
+                <td class="name"><span>Описание техники</span></td>
+                <td class="cur">{{ car.model_technique.description }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Клиент</span></td>
+                <td class="cur">{{ car.client.user.first_name }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Заводской номер</span></td>
+                <td class="cur">{{ car.factory_number }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Модель двигателя</span></td>
+                <td class="cur">{{ car.engine_model }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Зав. № двигателя</span></td>
+                <td class="cur">{{ car.engine_serial_number }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание двигателя</span></td>
+                <td class="cur">{{ car.engine_model.description }}</td>
+            </tr>
+
+            <tr>
+                <td class="name"><span>Модель трансмиссии</span></td>
+                <td class="cur">{{ car.transmission_model}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Зав. № трансмиссии</span></td>
+                <td class="cur">{{ car.transmission_serial_numbers }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание трансмиссии</span></td>
+                <td class="cur">{{ car.transmission_serial_numbers.description }}</td>
+            </tr>
+
+            <tr>
+                <td class="name"><span>Модель ведущего моста</span></td>
+                <td class="cur">{{ car.model_drive_bridge }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Зав. № ведущего моста</span></td>
+                <td class="cur">{{ car.factory_number_drive_bridge }}</td>
+            </tr>
+             <tr>
+                <td class="name"><span>Описание ведущего моста</span></td>
+                <td class="cur">{{ car.model_drive_bridge.description }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Модель управляемого моста</span></td>
+                <td class="cur">{{ car.controlled_bridge_model }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Зав. № управляемого моста</span></td>
+                <td class="cur">{{ car.factory_number_controlled_bridge }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание управляемого моста</span></td>
+                <td class="cur">{{ car.controlled_bridge_model.description }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Договор поставки №, дата</span></td>
+                <td class="cur">{{ car.delivery_agreement |date:'d-m-Y'}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Дата отгрузки с завода</span></td>
+                <td class="cur">{{ car.factory_shipment_date |date:'d-m-Y' }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Грузополучатель</span></td>
+                <td class="cur">{{ car.consignee }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Адрес поставки</span></td>
+                <td class="cur">{{ car.delivery_address }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Комплектация (доп. опции)</span></td>
+                <td class="cur">{{ car.equipment }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Сервисная компания</span></td>
+                <td class="cur">{{ car.service_company}}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td class="name"><span>Описание техники</span></td>
+                <td class="cur">{{ car.model_technique.description }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Заводской номер</span></td>
+                <td class="cur">{{ car.factory_number }}</td>
+            </tr>
+
+            <tr>
+                <td class="name"><span>Модель двигателя</span></td>
+                <td class="cur">{{ car.engine_model }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Зав. № двигателя</span></td>
+                <td class="cur">{{ car.engine_serial_number }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание двигателя</span></td>
+                <td class="cur">{{ car.engine_model.description }}</td>
+            </tr>
+
+            <tr>
+                <td class="name"><span>Модель трансмиссии</span></td>
+                <td class="cur">{{ car.transmission_model}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Зав. № трансмиссии</span></td>
+                <td class="cur">{{ car.transmission_serial_numbers }}</td>
+            </tr>
+             <tr>
+                <td class="name"><span>Описание трансмиссии</span></td>
+                <td class="cur">{{ car.transmission_serial_numbers.description }}</td>
+            </tr>
+
+
+            <tr>
+                <td class="name"><span>Модель ведущего моста</span></td>
+                <td class="cur">{{ car.model_drive_bridge }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Зав. № ведущего моста</span></td>
+                <td class="cur">{{ car.factory_number_drive_bridge }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание ведущего моста</span></td>
+                <td class="cur">{{ car.model_drive_bridge.description }}</td>
+            </tr>
+
+
+            <tr>
+                <td class="name"><span>Модель управляемого моста</span></td>
+                <td class="cur">{{ car.controlled_bridge_model }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Зав. № управляемого моста</span></td>
+                <td class="cur">{{ car.factory_number_controlled_bridge }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание управляемого моста</span></td>
+                <td class="cur">{{ car.controlled_bridge_model.description }}</td>
+            </tr>
+
+            {% endif %}
+            </tbody>
+        </table>
+
+    </section>
+
+
+    <div class="content-editing">
+        <a href="http://127.0.0.1:8000/"><button> Назад </button></a>
+
+        {% if perms.service.change_car %}
+        <a href="{% url  'car_update' pk=car.id %}"><button>Редактировать</button></a>
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+</div>
 
 
 {% endblock content %}

@@ -15,7 +15,7 @@ urlpatterns = [
                   path('technical_service/<int:pk>/', views.TechnicalMaintenanceDetail.as_view(),
                        name='technical_service_detail'),
                   path('technical_service/create/', views.TechnicalMaintenanceCreate.as_view(),
-                       name='technical_service_CREATE'),
+                       name='technical_service_create'),
                   path('technical_service/<int:pk>/update/', views.TechnicalMaintenanceUpdate.as_view(),
                        name='technical_service_update'),
                   path('technical_service/<int:pk>/delete/', views.TechnicalMaintenanceDelete.as_view(),

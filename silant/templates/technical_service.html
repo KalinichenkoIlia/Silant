@@ -3,11 +3,71 @@
 {% load static %}
 
 {% block title %}
-    {{ technical_service.order_number }}
+{{ car.factory_number }}
 {% endblock title %}
 
 {% block content %}
-<h1>{{ technical_service.order_number }}</h1>
+<div class="wrapper-content">
+    {% if technical_service %}
+    <h2> Т О вилочного погрузчика  {{ technical_service.car.model_technique }} ({{ technical_service.car.factory_number }})</h2>
+    <section>
+        <table class="entity_table">
+            <tbody>
+            <tr>
+                <td class="name"><span>Вид ТО</span></td>
+                <td class="cur">{{ technical_service.type_maintenance }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание ТО</span></td>
+                <td class="cur">{{ technical_service.type_maintenance.description }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Дата проведения ТО</span></td>
+                <td class="cur">{{ technical_service.date_event |date:'d-m-Y'}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Наработка, м/час</span></td>
+                <td class="cur">{{ technical_service.operating_time }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>№ заказ-наряда</span></td>
+                <td class="cur">{{technical_service.order_number }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Дата заказ-наряда</span></td>
+                <td class="cur">{{ technical_service.date_order |date:'d-m-Y'}}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Организация, проводившая ТО</span></td>
+                <td class="cur">{{ technical_service.organization_maintenance }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Описание организации</span></td>
+                <td class="cur">{{ technical_service.organization_maintenance.description }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Машина</span></td>
+                <td class="cur">{{ technical_service.car.factory_number }}</td>
+            </tr>
+            <tr>
+                <td class="name"><span>Сервисная компания</span></td>
+                <td class="cur">{{ technical_service.service_company }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </section>
+    <div class="content-editing">
+        <a href="http://127.0.0.1:8000/"><button> Назад </button></a>
+
+        {% if perms.service.change_technicalmaintenance%}
+        <a href="{% url  'technical_service_update' pk=technical_service.id %}"><button>Редактировать</button></a>
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+</div>
 
 
 {% endblock content %}

@@ -5,9 +5,9 @@ Silant
 {% endblock title %}
 
 {% block content %}
-{% if request.user.is_authenticated %}
-<div class="home-wrapper">
 
+<div class="home-wrapper">
+    {% if request.user.is_authenticated %}
 
     <nav class="home-tabs">
         <nav class="tabs-buttons">
@@ -22,11 +22,21 @@ Silant
     {% endif %}
     <div class="tabs_forms">
 
-        <div {% if not request.user.is_authenticated %}  class="form-non-auth form"  {% endif %} class="form " data-tab="car">
+        <div {% if not request.user.is_authenticated %} class=" form-non-auth" {% endif %} class="form " data-tab="car">
             <form class="filter" action="" method="get">
                 {% if request.user.is_authenticated %}
-                {{ filter_car.form.as_p }}
-                <input class="home-input-filter" type="submit" value="Найти" data-tab="car"/>
+                <div>
+                    {{ filter_car.form.as_p }}
+                </div>
+                <div class="actions">
+                    {% if perms.service.add_car%}
+                    <a href="{% url 'car_create' %}">
+                        <button type="button" class="home-input-filter">Создать</button>
+                    </a>
+
+                    {% endif %}
+                    <input class="home-input-filter" type="submit" value="Найти" data-tab="car"/>
+                </div>
                 {% else %}
                 <nav class="filter-non-auth">
                     {{ filter_car.form.factory_number }}
@@ -89,10 +99,18 @@ Silant
         </div>
         <div class="form" data-tab="technical_service">
             <form class="filter" action="" method="get">
+                <div>
+                    {{ filter_technical_service.form.as_p }}
+                </div>
 
-                {{ filter_technical_service.form.as_p }}
-
-                <input class="home-input-filter" type="submit" value="Найти" data-tab="technical_service"/>
+                <div class="actions">
+                    {% if perms.service.add_technicalmaintenance %}
+                    <a href="{% url 'technical_service_create' %}">
+                        <button type="button" class="home-input-filter">Создать</button>
+                    </a>
+                    {% endif %}
+                    <input class="home-input-filter" type="submit" value="Найти" data-tab="technical_service"/>
+                </div>
             </form>
             <div class="home-wrapper-table">
                 <table class="table">
@@ -109,16 +127,15 @@ Silant
                         <th>Сервисная компания</th>
                     </tr>
                     </thead>
-
                     <tbody>
                     {% if filter_technical_service %}
                     {% for service in filter_technical_service.qs %}
                     <tr onclick="window.location=`{% url 'technical_service_detail' pk=service.id %}`">
                         <td data-label='Зав.номер машины'>{{service.car.factory_number}}</td>
-                        <td data-label='Дата проведения ТО'>{{service.date_event}}</td>
+                        <td data-label='Дата проведения ТО'>{{service.date_event |date:'d-m-Y'}}</td>
                         <td data-label='Вид ТО'>{{service.type_maintenance}}</td>
                         <td data-label='№ заказ-наряда'>{{service.order_number}}</td>
-                        <td data-label='Дата заказ-наряда'>{{service.date_order}}</td>
+                        <td data-label='Дата заказ-наряда'>{{service.date_order |date:'d-m-Y'}}</td>
                         <td data-label='Наработка, м/час'>{{service.operating_time}}</td>
                         <td data-label='№ заказ-наряда'>{{service.order_number}}</td>
                         <td data-label='Организация, проводившая ТО'>{{service.organization_maintenance}}</td>
@@ -134,11 +151,19 @@ Silant
         </div>
         <div class="form" data-tab="complaints">
             <form class="filter" action="" method="get">
-
-                {{ filter_complaints.form.as_p }}
-
-                <input class="home-input-filter" type="submit" value="Найти" data-tab="complaints"/>
+                <div>
+                    {{ filter_complaints.form.as_p }}
+                </div>
+                <div class="actions">
+                    {% if perms.service.add_complaints%}
+                    <a href="{% url 'complaints_create' %}">
+                        <button type="button" class="home-input-filter">Создать</button>
+                    </a>
+                    {% endif %}
+                    <input class="home-input-filter" type="submit" value="Найти" data-tab="complaints"/>
+                </div>
             </form>
+
             <div class="home-wrapper-table">
                 <table class="table">
                     <thead>
@@ -159,13 +184,13 @@ Silant
                     {% if filter_complaints %}
                     {% for complaint in filter_complaints.qs %}
                     <tr onclick="window.location=`{% url 'complaints_detail' pk=complaint.id %}`">
-                        <td data-label='Дата отказа'>{{complaint.date_refusal}}</td>
+                        <td data-label='Дата отказа'>{{complaint.date_refusal |date:'d-m-Y'}}</td>
                         <td data-label='Клиент'>{{complaint.car.client.user.first_name}}</td>
                         <td data-label='Модель техники'>{{complaint.car.model_technique}}</td>
                         <td data-label='Зав.номер машины'>{{complaint.car.factory_number}}</td>
                         <td data-label='Сервисная компания'>{{complaint.service_company}}</td>
                         <td data-label='Время простоя дн'>{{complaint.equipment_downtime}}</td>
-                        <td data-label='Дата восстановления'>{{complaint.date_restoration}}</td>
+                        <td data-label='Дата восстановления'>{{complaint.date_restoration |date:'d-m-Y'}}</td>
                         <td data-label='Способ восстановления'>{{complaint.recovery_method}}</td>
 
                         {% empty %}
@@ -183,5 +208,4 @@ Silant
 </div>
 
 
-<script type="text/javascript" src="../static/scripts/home.js"></script>
 {% endblock content %}

@@ -8,24 +8,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const forms = document.querySelector('.tabs_forms');
+
     if (getCookie().tab) {
+
         forms.querySelector(`[data-tab=${getCookie().tab}]`).classList.add('active_form')
         document.querySelector(`[data-tab=${getCookie().tab}]`).classList.add('active')
+        console.log(getCookie())
 
     } else {
+
         forms.querySelector(`[data-tab=${'car'}]`).classList.add('active_form')
         document.querySelector(`[data-tab=${'car'}]`).classList.add('active')
     }
+
     const tabs = () => {
 
-        const getActiveButtonName = () => { //получение значения data-tab активной кнопки
+        const getActiveButtonName = () => {
+            //получение значения data-tab активной кнопки
             return document.querySelector('.btn.active').dataset.tab
         }
-        const setActiveForm = () => { //установка активной формы
+        const setActiveForm = () => {
+            //установка активной формы
             if (forms.querySelector('.active_form')) {
                 forms.querySelector('.active_form').classList.remove('active_form')
             }
             forms.querySelector(`[data-tab=${getActiveButtonName()}]`).classList.add('active_form')
+
             document.cookie = `tab=${getActiveButtonName()}`;
 
         }
@@ -38,10 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 setActiveForm(getActiveButtonName())
             })
         })
+        // нажите кнопки войти или выйти
 
     }
+
     tabs()
-    document.querySelector('.account_logout').addEventListener('click', () => {
+
+    if (document.querySelector('.form-non-auth')) {
+        forms.querySelector('.active_form').classList.remove('active_form')
+    }
+
+    document.querySelector('.button-general').addEventListener('click', () => {
+        forms.querySelector('.active_form').classList.remove('active_form')
         document.cookie = `tab=car`;
     })
 })

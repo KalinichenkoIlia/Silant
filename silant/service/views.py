@@ -18,51 +18,52 @@ class HomePage(ListView):
         пользователя с моделью
 
         """
-        self.technical_service = TechnicalMaintenance.objects.filter(Q(
-            car__client__user=self.request.user.id) | Q(
-            service_company__profile__user=self.request.user.id))
+        if self.request:
+            self.technical_service = TechnicalMaintenance.objects.filter(Q(
+                car__client__user=self.request.user.id) | Q(
+                service_company__profile__user=self.request.user.id))
 
-        self.car = Car.objects.filter(Q(
-            client__user=self.request.user.id) | Q(
-            service_company__profile__user=self.request.user.id))
+            self.car = Car.objects.filter(Q(
+                client__user=self.request.user.id) | Q(
+                service_company__profile__user=self.request.user.id))
 
-        self.complaints = Complaints.objects.filter(Q(
-            car__client__user=self.request.user.id) | Q(
-            service_company__profile__user=self.request.user.id))
+            self.complaints = Complaints.objects.filter(Q(
+                car__client__user=self.request.user.id) | Q(
+                service_company__profile__user=self.request.user.id))
 
-        if self.request.user.is_authenticated:
-            if self.request.user.is_staff or self.request.user.profile == 'MG':
-                """
-                только для менеджера или администратора 
-                объекты модели будут все 
-                
-                """
-                self.car = Car.objects.all()
-                self.technical_service = TechnicalMaintenance.objects.all()
-                self.complaints = Complaints.objects.all()
+            if self.request.user.is_authenticated:
+                if self.request.user.is_staff or self.request.user.profile.position == 'MG':
+                    """
+                    только для менеджера или администратора 
+                    объекты модели будут все 
 
-            self.filter_car = CarFilter(
-                self.request.GET,
-                queryset=self.car,
-                prefix='car')
+                    """
+                    self.car = Car.objects.all()
+                    self.technical_service = TechnicalMaintenance.objects.all()
+                    self.complaints = Complaints.objects.all()
 
-            self.filter_technical_service = TechnicalServiceFilter(
-                self.request.GET,
-                queryset=self.technical_service,
-                prefix='service')
+                self.filter_car = CarFilter(
+                    self.request.GET,
+                    queryset=self.car,
+                    prefix='car')
 
-            self.filter_complaints = ComplaintsFilter(
-                self.request.GET,
-                queryset=self.complaints)
+                self.filter_technical_service = TechnicalServiceFilter(
+                    self.request.GET,
+                    queryset=self.technical_service,
+                    prefix='service')
 
-            return self.filter_car.qs, self.filter_technical_service.qs, self.filter_complaints.qs
+                self.filter_complaints = ComplaintsFilter(
+                    self.request.GET,
+                    queryset=self.complaints)
 
-        else:
-            self.filter_car = CarFilter(  # фильтр для неавторизованных
-                self.request.GET,
-                queryset=Car.objects.all(),
-                prefix='car')
-            return self.filter_car.qs
+                return self.filter_car.qs, self.filter_technical_service.qs, self.filter_complaints.qs
+
+            else:
+                self.filter_car = CarFilter(  # фильтр для неавторизованных
+                    self.request.GET,
+                    queryset=Car.objects.all(),
+                    prefix='car')
+                return self.filter_car.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -111,18 +112,33 @@ class TechnicalMaintenanceDetail(CustomPermissionRequiredMixin, DetailView):
 
 
 class TechnicalMaintenanceCreate(PermissionRequiredMixin, CreateView):
-    permission_required = 'service.add_technical_service'
+    permission_required = 'service.add_technicalmaintenance'
     model = TechnicalMaintenance
     form_class = CreateTechnicalMaintenanceForm
     template_name = 'technical_service_create.html'
-    context_object_name = 'technical_service_create'
+    context_object_name = 'technical_create'
+
+    def get_form_kwargs(self):
+        # передача текущего пользователя в форму
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
 
-class TechnicalMaintenanceUpdate(PermissionRequiredMixin, UpdateView):
-    permission_required = 'service.change_technical_service'
-    template_name = 'create_technical_service.html'
+class TechnicalMaintenanceUpdate(CustomPermissionRequiredMixin, UpdateView):
+    permission_required = 'service.change_technicalMaintenance'
+    template_name = 'technical_service_create.html'
     form_class = CreateTechnicalMaintenanceForm
     model = TechnicalMaintenance
+
+    def get_form_kwargs(self):
+        # передача текущего пользователя в форму
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 class TechnicalMaintenanceDelete(PermissionRequiredMixin, DeleteView):
@@ -147,7 +163,7 @@ class ComplaintsCreate(PermissionRequiredMixin, CreateView):
     context_object_name = 'complaints_create'
 
 
-class ComplaintsUpdate(PermissionRequiredMixin, UpdateView):
+class ComplaintsUpdate(CustomPermissionRequiredMixin, UpdateView):
     permission_required = 'service.change_complaints'
     template_name = 'complaints_create.html'
     form_class = CreateComplaints

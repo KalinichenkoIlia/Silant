@@ -6,12 +6,15 @@
     <title>{% block title %}Silant{% endblock title %}</title>
     {% load static %}
     {% load account %}
-
+    <script type="text/javascript" src="{% static 'scripts/home.js' %}"></script>
     <link href="{% static 'styles/home.css' %}" rel="stylesheet">
     <link href="{% static 'styles/base.css' %}" rel="stylesheet">
+    <link href="{% static 'styles/common_entity_styles.css' %}" rel="stylesheet">
 </head>
 <body>
 <header>
+
+
     <nav class="top-navigation-wrap">
         <img class="logo" src="{% static 'images/logo.svg' %}" alt="LOGO">
         <div class="header-banner">
@@ -22,11 +25,11 @@
             {% if request.user.is_authenticated %}
             <span class="username"> {{ user.username }}</span>
             <a class="account_logout" href="{% url 'account_logout' %}">
-                <button class="button-general">Выход</button>
+                <button class="button-general ">Выход</button>
             </a>
             {% elif not request.user.is_authenticated %}
             <a class="account_login" href="{% url 'account_login' %}">
-                <button class="button-general">Вход</button>
+                <button class="button-general ">Вход</button>
             </a>
             {% endif %}
         </nav>
@@ -41,5 +44,6 @@
 <footer>
     footer
 </footer>
+
 </body>
 </html>

@@ -118,6 +118,18 @@ class CreateCarForm(ModelForm):
 
 
 class CreateTechnicalMaintenanceForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        if not self.user.profile.position == 'MG' and not self.user.is_staff:
+            service_company = self.fields['service_company']
+            car = self.fields['car']
+            car.disabled = True
+            service_company.disabled = True
+
     type_maintenance = ModelChoiceField(
         queryset=models.TypeMaintenance.objects.all(),
         label='Вид ТО',

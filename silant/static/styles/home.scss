@@ -16,20 +16,25 @@
   justify-content: space-between;
   margin: 30px 0 30px 0;
   font-family: PT-Astra-Sans_Regular, sans-serif;
-  div:nth-child(1){
+
+  div:nth-child(1) {
     display: flex;
-     p {
-    margin: 0 0 16px 0;
-    label {
-      font-family: PT-Astra-Sans_Regular, sans-serif;
-      font-size: 16px;
-      margin-bottom: 5px;
+
+    p {
+      margin: 0 0 16px 0;
+
+      label {
+        font-family: PT-Astra-Sans_Regular, sans-serif;
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
     }
   }
-  }
 }
+
 .actions {
   display: flex;
+
   a {
     margin-right: 30px;
     display: inline-block;
@@ -39,7 +44,6 @@
 }
 
 .home-input-filter {
-
   background-color: $basic-color-silant-blue;
   color: $basic-color-silant;
   min-width: 100px;
@@ -51,19 +55,31 @@
     cursor: pointer;
     opacity: 0.8;
   }
+
   &:active {
     opacity: 0.6;
   }
 }
 
-
-.form-filter {
+@mixin form-filter() {
   width: 94%;
   height: 35px;
   border-radius: 5px;
   border: none;
 }
 
+
+.car_form {
+  @include form-filter
+}
+
+.technical_form {
+  @include form-filter
+}
+
+.complaints_form {
+  @include form-filter
+}
 
 .btn {
   background-color: $basic-color-silant;
@@ -100,7 +116,7 @@
   border-radius: 20px;
   margin-bottom: 20px;
   border-collapse: separate;
-  font-family: PT-Astra-Sans_Bold-Italic,sans-serif;
+  font-family: PT-Astra-Sans_Bold-Italic, sans-serif;
 }
 
 .table thead th {
@@ -209,7 +225,11 @@
       opacity: 0.6;
     }
   }
+}
 
+.input_car:disabled {
+  cursor: default;
+  opacity: 0.5;
 }
 
 @media only screen and (max-width: 1366px) {
@@ -225,6 +245,7 @@
 @media only screen and (max-width: 1340px) {
   .filter {
     justify-content: start;
+
     div:nth-child(1) {
       flex-direction: column;
     }
@@ -331,6 +352,7 @@
   }
   .filter-non-auth {
     width: 80vw;
+
     .input-non-auth {
       min-width: 58px;
       height: 37px;

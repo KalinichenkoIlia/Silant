@@ -31,11 +31,11 @@ Silant
                 <div class="actions">
                     {% if perms.service.add_car%}
                     <a href="{% url 'car_create' %}">
-                        <button type="button" class="home-input-filter">Создать</button>
+                        <button type="button" class="home-input-filter" name="search_car">Создать</button>
                     </a>
-
                     {% endif %}
-                    <input class="home-input-filter" type="submit" value="Найти" data-tab="car"/>
+
+                    <input  class="home-input-filter input_car" disabled type="submit" value="Найти" data-tab="car"/>
                 </div>
                 {% else %}
                 <nav class="filter-non-auth">
@@ -47,7 +47,7 @@ Silant
 
 
             </form>
-            <div class="home-wrapper-table">
+            <div class="home-wrapper-table car-table">
                 <table class="table">
                     <thead>
                     <tr>
@@ -72,7 +72,6 @@ Silant
                     {% if filter_car %}
                     {% for car in filter_car.qs %}
                     <tr onclick="window.location=`{% url 'car_detail' pk=car.id %}`">
-
                         <td data-label='Зав.номер машины'>{{car.factory_number}}</td>
                         <td data-label='Зав.номер машины'>{{car.model_technique}}</td>
 
@@ -87,11 +86,13 @@ Silant
 
                         <td data-label='Модель управляемого моста'>{{car.controlled_bridge_model}}</td>
                         <td data-label='Зав. № управляемого моста'>{{car.factory_number_controlled_bridge}}</td>
-
                         {% empty %}
-                        <td>данных о машине с таким заводским номером нет в системе</td>
+
+                            <td>данных о машине с такими параметрами нет </td>
+                        {% endfor %}
+
                     </tr>
-                    {% endfor %}
+
                     {% endif %}
                     </tbody>
                 </table>

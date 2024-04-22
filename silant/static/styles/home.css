@@ -52,7 +52,21 @@
   opacity: 0.6;
 }
 
-.form-filter {
+.car_form {
+  width: 94%;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+}
+
+.technical_form {
+  width: 94%;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+}
+
+.complaints_form {
   width: 94%;
   height: 35px;
   border-radius: 5px;
@@ -190,6 +204,11 @@
 }
 .filter-non-auth .input-non-auth:active {
   opacity: 0.6;
+}
+
+.input_car:disabled {
+  cursor: default;
+  opacity: 0.5;
 }
 
 @media only screen and (max-width: 1366px) {

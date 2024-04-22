@@ -123,8 +123,8 @@ class CreateTechnicalMaintenanceForm(ModelForm):
 
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-
-        if not self.user.profile.position == 'MG' and not self.user.is_staff:
+        # отключение полей что бы пользователь не смог изменить  их
+        if not self.user.is_staff and not self.user.profile.position == 'MG':
             service_company = self.fields['service_company']
             car = self.fields['car']
             car.disabled = True
@@ -183,6 +183,17 @@ class CreateTechnicalMaintenanceForm(ModelForm):
 
 
 class CreateComplaints(ModelForm):
+    def __init__(self, *args, **kwargs):
+
+        self.user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        # отключение полей что бы пользователь не смог изменить  их
+        if not self.user.is_staff and not self.user.profile.position == 'MG':
+            service_company = self.fields['service_company']
+            car = self.fields['car']
+            car.disabled = True
+            service_company.disabled = True
+
     class Meta:
         model = Complaints
         fields = [

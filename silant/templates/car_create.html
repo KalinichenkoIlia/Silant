@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Создание / Редактирование карточки техники</h1>
+<div class="card">
+    <h1>Создание / Редактирование карточки техники</h1>
 <hr>
-<form action="" method="post">
+<form class="form_card" action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Сохранить" />
+    <input class="card_submit" type="submit" value="Сохранить" />
 </form>
+
+</div>
 {% endblock content %}

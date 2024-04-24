@@ -11,7 +11,8 @@ class CreateCarForm(ModelForm):
     factory_number = CharField(
         label='Заводской номер',
         widget=TextInput(
-            attrs={'class': 'form-control'})
+            attrs={'class': 'form-control'}),
+
     )
     model_technique = ModelChoiceField(
         queryset=models.ModelTechnique.objects.all(),
@@ -127,9 +128,7 @@ class CreateCarForm(ModelForm):
 
         if not Car.objects.filter(factory_number=factory_number, client=client) and Car.objects.filter(
                 factory_number=factory_number):
-            raise ValidationError({
-                'factory_number': f'Техника с таким заводским номером уже существует'
-            })
+            self.add_error('__all__', ValidationError('Техника с таким заводским номером уже существует'))
 
         if Car.objects.filter(client=client) and not Car.objects.filter(client=client, factory_number=factory_number):
             raise ValidationError({

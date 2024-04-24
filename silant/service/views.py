@@ -97,16 +97,7 @@ class CarCreate(PermissionRequiredMixin, CreateView):
     model = Car
     form_class = CreateCarForm
     template_name = 'car_create.html'
-    context_object_name = 'car_create.html'
-
-    def form_valid(self, form):
-        factory_number = form.cleaned_data.get('factory_number')
-        client = form.cleaned_data.get('client')
-        if not Car.objects.filter(factory_number=factory_number, client=client) and Car.objects.filter(
-                factory_number=factory_number):
-           form.add_error('factory_number', ValidationError('Техника с таким заводским номером уже существует'))
-
-        return super().form_valid(form)
+    context_object_name = 'car_create'
 
 
 class CarUpdate(PermissionRequiredMixin, UpdateView):

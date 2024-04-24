@@ -128,7 +128,7 @@ class CreateCarForm(ModelForm):
 
         if not Car.objects.filter(factory_number=factory_number, client=client) and Car.objects.filter(
                 factory_number=factory_number):
-            self.add_error('__all__', ValidationError('Техника с таким заводским номером уже существует'))
+            self.add_error('factory_number', 'Техника с таким заводским номером уже существует')
 
         if Car.objects.filter(client=client) and not Car.objects.filter(client=client, factory_number=factory_number):
             raise ValidationError({

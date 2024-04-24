@@ -35,7 +35,7 @@ Silant
                     </a>
                     {% endif %}
 
-                    <input  class="home-input-filter input_car" disabled type="submit" value="Найти" data-tab="car"/>
+                    <input  class="home-input-filter input_car"  type="submit" value="Найти" data-tab="car"/>
                 </div>
                 {% else %}
                 <nav class="filter-non-auth">
@@ -69,7 +69,7 @@ Silant
                     </thead>
 
                     <tbody>
-                    {% if filter_car %}
+                    {% if filter_car.qs %}
                     {% for car in filter_car.qs %}
                     <tr onclick="window.location=`{% url 'car_detail' pk=car.id %}`">
                         <td data-label='Зав.номер машины'>{{car.factory_number}}</td>
@@ -87,10 +87,16 @@ Silant
                         <td data-label='Модель управляемого моста'>{{car.controlled_bridge_model}}</td>
                         <td data-label='Зав. № управляемого моста'>{{car.factory_number_controlled_bridge}}</td>
                         {% empty %}
-
-                            <td>данных о машине с такими параметрами нет </td>
+                        <td> Укажите хотябы один параметр  </td>
                         {% endfor %}
-
+                        {% elif not_found_car %}
+                        <td>данных о машине с такими параметрами нет </td>
+                        {% else %}
+                        {% if request.user.is_authenticated %}
+                            <td> Укажите хотя бы один параметр  </td>
+                        {% else %}
+                        <td>Введите Зав.номер машины</td>
+                        {% endif %}
                     </tr>
 
                     {% endif %}
@@ -129,7 +135,7 @@ Silant
                     </tr>
                     </thead>
                     <tbody>
-                    {% if filter_technical_service %}
+                    {% if filter_technical_service.qs %}
                     {% for service in filter_technical_service.qs %}
                     <tr onclick="window.location=`{% url 'technical_service_detail' pk=service.id %}`">
                         <td data-label='Зав.номер машины'>{{service.car.factory_number}}</td>
@@ -142,9 +148,13 @@ Silant
                         <td data-label='Организация, проводившая ТО'>{{service.organization_maintenance}}</td>
                         <td data-label='Сервисная компания'>{{service.service_company}}</td>
                         {% empty %}
-                        <td>данных о машине с таким заводским номером нет в системе</td>
+                        {% endfor %}
+                        {% elif not_found_service %}
+                        <td>данных о машине с такими параметрами нет </td>
+                        {% else %}
+                            <td> Укажите хотя бы один параметр  </td>
                     </tr>
-                    {% endfor %}
+
                     {% endif %}
                     </tbody>
                 </table>
@@ -182,7 +192,7 @@ Silant
                     </thead>
 
                     <tbody>
-                    {% if filter_complaints %}
+                    {% if filter_complaints.qs %}
                     {% for complaint in filter_complaints.qs %}
                     <tr onclick="window.location=`{% url 'complaints_detail' pk=complaint.id %}`">
                         <td data-label='Дата отказа'>{{complaint.date_refusal |date:'d-m-Y'}}</td>
@@ -195,9 +205,13 @@ Silant
                         <td data-label='Способ восстановления'>{{complaint.recovery_method}}</td>
 
                         {% empty %}
-                        <td>данных о машине с таким заводским номером нет в системе</td>
+                        {% endfor %}
+                        {% elif not_found_complaints %}
+                        <td>данных о машине с такими параметрами нет </td>
+                        {% else %}
+                            <td> Укажите хотя бы один параметр </td>
                     </tr>
-                    {% endfor %}
+
                     {% endif %}
                     </tbody>
                 </table>

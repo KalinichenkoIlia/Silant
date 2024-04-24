@@ -58,7 +58,7 @@
         </table>
     </section>
     <div class="content-editing">
-        <a href="http://127.0.0.1:8000/"><button> Назад </button></a>
+        <button class="history_back"> Назад </button>
 
         {% if perms.service.change_technicalmaintenance%}
         <a href="{% url  'technical_service_update' pk=technical_service.id %}"><button>Редактировать</button></a>

@@ -1,7 +1,9 @@
-from django.forms import ModelForm, CharField, Select, Textarea, ModelChoiceField, TextInput,\
-    ChoiceField, DateField, DateInput, IntegerField
-from references import models
+from django.core.exceptions import ValidationError
+from django.forms import ModelForm, CharField, Select, ModelChoiceField, TextInput, \
+    DateField, DateInput, IntegerField
+
 from accounts.models import Profile
+from references import models
 from .models import Car, TechnicalMaintenance, Complaints
 
 
@@ -61,7 +63,7 @@ class CreateCarForm(ModelForm):
         label='Модель управляемого моста',
         widget=Select(
             attrs={'class': 'form-control'}
-    ))
+        ))
     factory_number_controlled_bridge = CharField(
         label='Зав. № управляемого моста',
         min_length=3,
@@ -96,7 +98,7 @@ class CreateCarForm(ModelForm):
     )
     client = ModelChoiceField(
         label='Клиент',
-        queryset=Profile.objects.all(),
+        queryset=Profile.objects.filter(position='CL'),
         widget=Select(
             attrs={'class': 'form-control'})
     )
@@ -116,11 +118,36 @@ class CreateCarForm(ModelForm):
                   'equipment', 'client', 'service_company'
                   ]
 
+    def clean(self):
+        cleaned_data = super().clean()
+        client = cleaned_data.get('client')
+        factory_number = cleaned_data.get('factory_number')
+        service_company = cleaned_data.get('service_company')
+        h = Car.objects.filter(factory_number=factory_number, client=client)
+
+        if not Car.objects.filter(factory_number=factory_number, client=client) and Car.objects.filter(
+                factory_number=factory_number):
+            raise ValidationError({
+                'factory_number': f'Техника с таким заводским номером уже существует'
+            })
+
+        if Car.objects.filter(client=client) and not Car.objects.filter(client=client, factory_number=factory_number):
+            raise ValidationError({
+                'client': 'Клиент может иметь только один атомобиль  '
+            })
+
+        if Car.objects.filter(service_company=service_company) and not Car.objects.filter(
+                service_company=service_company, factory_number=factory_number):
+            raise ValidationError({
+                'service_company': 'Сервисная компания может иметь только один атомобиль  '
+            })
+
+        return cleaned_data
+
 
 class CreateTechnicalMaintenanceForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
-
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         # отключение полей что бы пользователь не смог изменить  их
@@ -184,7 +211,6 @@ class CreateTechnicalMaintenanceForm(ModelForm):
 
 class CreateComplaints(ModelForm):
     def __init__(self, *args, **kwargs):
-
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         # отключение полей что бы пользователь не смог изменить  их

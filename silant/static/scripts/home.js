@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         forms.querySelector(`[data-tab=${getCookie().tab}]`).classList.add('active_form');
         document.querySelector(`[data-tab=${getCookie().tab}]`).classList.add('active');
-        console.log(getCookie())
-
     } else {
 
         forms.querySelector(`[data-tab=${'car'}]`).classList.add('active_form');
@@ -67,19 +65,21 @@ document.addEventListener('DOMContentLoaded', () => {
        const input = document.querySelector(`.${inputClass}`)
        selectorAll.forEach(selector => {
 
+       })
+       selectorAll.forEach(selector => {
            selector.addEventListener('change', () => {
                if (selector.options !== 0){
-                   input.disabled = false
+                   input.disabled = false;
                }
                if (selector.options === 0){
-                   input.disabled = true
+                   input.disabled = true;
                }
 
-           })
-       })
+           });
+       });
    }
 
-    prov('car_form', 'input_car')
+   // prov('car_form', 'input_car');
 
 })
 

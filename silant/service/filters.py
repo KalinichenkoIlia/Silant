@@ -2,6 +2,7 @@ from django.forms import TextInput, Select, DateInput
 from .models import Car, TechnicalMaintenance
 from references import models
 import django_filters
+from .helper import check_data
 
 
 class CarFilter(django_filters.FilterSet):
@@ -9,7 +10,7 @@ class CarFilter(django_filters.FilterSet):
     def __init__(self, *args, **kwargs):
         super(CarFilter, self).__init__(*args, **kwargs)
 
-        if self.data == {}:
+        if check_data(self.data, 'car-factory_number'):
             self.queryset = self.queryset.none()
 
     factory_number = django_filters.CharFilter(
@@ -50,12 +51,18 @@ class CarFilter(django_filters.FilterSet):
         queryset=models.ControlledBridgeModel.objects.all()
     )
 
+    class Meta:
+        fields = [
+            'factory_number', 'model_technique', 'engine_model',
+            'transmission_model', 'model_drive_bridge', 'controlled_bridge_model'
+        ]
+
 
 class TechnicalServiceFilter(django_filters.FilterSet):
     def __init__(self, *args, **kwargs):
         super(TechnicalServiceFilter, self).__init__(*args, **kwargs)
 
-        if self.data == {}:
+        if check_data(self.data, 'service-factory_number'):
             self.queryset = self.queryset.none()
 
     factory_number = django_filters.CharFilter(
@@ -101,8 +108,7 @@ class TechnicalServiceFilter(django_filters.FilterSet):
 class ComplaintsFilter(django_filters.FilterSet):
     def __init__(self, *args, **kwargs):
         super(ComplaintsFilter, self).__init__(*args, **kwargs)
-
-        if self.data == {}:
+        if check_data(self.data, 'complaints-car'):
             self.queryset = self.queryset.none()
 
     car = django_filters.CharFilter(

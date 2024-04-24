@@ -7,6 +7,7 @@ from .filters import CarFilter, TechnicalServiceFilter, ComplaintsFilter
 from .forms import CreateCarForm, CreateTechnicalMaintenanceForm, CreateComplaints
 from .mixins import CustomPermissionRequiredMixin
 from .models import Car, Complaints, TechnicalMaintenance
+from .helper import check_data
 
 
 class HomePage(ListView):
@@ -34,7 +35,6 @@ class HomePage(ListView):
                 service_company__profile__user=self.request.user.id))
 
             if self.request.user.is_staff or self.request.user.profile.position == 'MG':
-
                 """
                     только для менеджера или администратора 
                     объекты модели будут все 
@@ -58,7 +58,9 @@ class HomePage(ListView):
 
             self.filter_complaints = ComplaintsFilter(
                 self.request.GET,
-                queryset=self.complaints)
+                queryset=self.complaints,
+                prefix='complaints'
+            )
 
             return self.filter_car.qs, self.filter_technical_service.qs, self.filter_complaints.qs
 
@@ -75,11 +77,11 @@ class HomePage(ListView):
             context['filter_technical_service'] = self.filter_technical_service
             context['filter_complaints'] = self.filter_complaints
         context['filter_car'] = self.filter_car
-        print(self.filter_car.qs)
-        if not self.filter_car.qs:
-            context['found'] = False
-        else:
-            context['found'] = True
+
+        context['not_found_car'] = not self.filter_car.qs and not check_data(self.filter_car.data, 'car-factory_number')
+        context['not_found_service'] = not self.filter_car.qs and not check_data(self.filter_car.data, 'car-factory_number')
+        context['not_found_complaints'] = not self.filter_car.qs and not check_data(self.filter_car.data, 'complaints-car')
+
         return context
 
 

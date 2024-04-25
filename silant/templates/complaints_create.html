@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Создание рекламации</h1>
+<div class="card">
+    <h2>Создание / Редактирование карточки рекломации</h2>
 <hr>
-<form action="" method="post">
+
+<form class="form_card" action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Save" />
+    <input class="card_submit" type="submit" value="Сохранить" />
 </form>
+
+</div>
 {% endblock content %}

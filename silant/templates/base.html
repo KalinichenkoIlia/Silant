@@ -25,7 +25,7 @@
         </div>
         <nav >
             {% if request.user.is_authenticated %}
-            <span class="username"> {{ user.username }}</span>
+            <a class="link_home" href="{% url 'home' %}">Главная</a>
             <a class="account_logout" href="{% url 'account_logout' %}">
                 <button class="button-general ">Выход</button>
             </a>

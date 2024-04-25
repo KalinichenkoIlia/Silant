@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, CharField, Select, ModelChoiceField, TextInput, \
-    DateField, DateInput, IntegerField
+    DateField, DateInput, IntegerField, NumberInput, Textarea
 
 from accounts.models import Profile
 from references import models
@@ -12,7 +12,6 @@ class CreateCarForm(ModelForm):
         label='Заводской номер',
         widget=TextInput(
             attrs={'class': 'form-control'}),
-
     )
     model_technique = ModelChoiceField(
         queryset=models.ModelTechnique.objects.all(),
@@ -124,16 +123,18 @@ class CreateCarForm(ModelForm):
         client = cleaned_data.get('client')
         factory_number = cleaned_data.get('factory_number')
         service_company = cleaned_data.get('service_company')
-        h = Car.objects.filter(factory_number=factory_number, client=client)
 
         if not Car.objects.filter(factory_number=factory_number, client=client) and Car.objects.filter(
                 factory_number=factory_number):
-            self.add_error('factory_number', 'Техника с таким заводским номером уже существует')
-
-        if Car.objects.filter(client=client) and not Car.objects.filter(client=client, factory_number=factory_number):
             raise ValidationError({
-                'client': 'Клиент может иметь только один атомобиль  '
-            })
+                'factory_number': 'Техника с таким заводским номером уже существует'})
+
+        if Car.objects.filter(client=client) and Car.objects.filter(factory_number=factory_number):
+            if not Car.objects.filter(factory_number=factory_number, client=client) and Car.objects.filter(
+                    factory_number=factory_number):
+                raise ValidationError({
+                    'client': 'Клиент может иметь только один атомобиль !! '
+                })
 
         if Car.objects.filter(service_company=service_company) and not Car.objects.filter(
                 service_company=service_company, factory_number=factory_number):
@@ -169,11 +170,15 @@ class CreateTechnicalMaintenanceForm(ModelForm):
     )
     operating_time = IntegerField(
         label='Наработка, м/час',
+        widget=NumberInput(
+            attrs={'class': 'form-control'})
     )
     order_number = CharField(
         max_length=128,
         min_length=1,
-        label='№ заказ-наряда'
+        label='№ заказ-наряда',
+        widget=TextInput(
+            attrs={'class': 'form-control'})
     )
     date_order = DateField(
         label='Дата заказ-наряда',
@@ -219,7 +224,58 @@ class CreateComplaints(ModelForm):
             car.disabled = True
             service_company.disabled = True
 
+    date_refusal = DateField(
+        label='Дата отказа',
+        widget=DateInput(
+            attrs={'class': 'form-control'})
+    )
+    operating_time = IntegerField(
+        label='Наработка, м/час',
+        widget=NumberInput(
+            attrs={'class': 'form-control'})
+    )
+    failure_node = ModelChoiceField(
+        queryset=models.FailureNode.objects.all(),
+        label='Узел отказа',
+        widget=Select(
+            attrs={'class': 'form-control'})
+    )
+    description_failure = CharField(
+        label='Описание отказа',
+        widget=Textarea(
+            attrs={'class': 'form-control'})
+    )
+    recovery_method = ModelChoiceField(
+        queryset=models.RecoveryMethod.objects.all(),
+        label='Способ восстановления',
+        widget=Select(
+            attrs={'class': 'form-control'})
+    )
+    list_spare_parts = CharField(
+        label='Используемые запасные части',
+        widget=Textarea(
+            attrs={'class': 'form-control'})
+    )
+    date_restoration = DateField(
+        label='Дата восстановления',
+        widget=DateInput(
+            attrs={'class': 'form-control'})
+    )
+    car = ModelChoiceField(
+        queryset=Car.objects.all(),
+        label='Машина',
+        widget=Select(
+            attrs={'class': 'form-control'})
+    )
+    service_company = ModelChoiceField(
+        queryset=models.ServiceCompany.objects.all(),
+        label='Сервисная компания',
+        widget=Select(
+            attrs={'class': 'form-control'})
+    )
+
     class Meta:
+
         model = Complaints
         fields = [
             'date_refusal', 'operating_time', 'failure_node', 'description_failure',

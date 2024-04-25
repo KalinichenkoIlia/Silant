@@ -2,13 +2,16 @@
 
 {% block content %}
 <div class="card">
-    <h1>Создание / Редактирование карточки техники</h1>
+    <h2>Создание / Редактирование карточки техники</h2>
 <hr>
+   <p class="error_form">{{ form.factory_number.errors.as_text }}</p>
+    <p class="error_form">{{ form.client.errors.as_text }}</p>
+    <p class="error_form">{{ form.service_company.errors.as_text }}</p>
 <form class="form_card" action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input class="card_submit" type="submit" value="Сохранить" />
 </form>
-<div>{{ car_create }}</div>
+
 </div>
 {% endblock content %}

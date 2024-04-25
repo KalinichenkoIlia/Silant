@@ -88,6 +88,13 @@
   height: 30px;
   font-family: Astra-Sans-Bold, sans-serif;
   font-size: 16px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 0.5;
+  }
 }
 
 .btn.active {

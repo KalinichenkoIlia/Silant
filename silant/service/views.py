@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
 from django.urls import reverse_lazy
+
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.core.exceptions import ValidationError
 from .filters import CarFilter, TechnicalServiceFilter, ComplaintsFilter
 from .forms import CreateCarForm, CreateTechnicalMaintenanceForm, CreateComplaints
+
 from .mixins import CustomPermissionRequiredMixin
 from .models import Car, Complaints, TechnicalMaintenance
 from .helper import check_data

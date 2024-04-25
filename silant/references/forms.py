@@ -1,9 +1,7 @@
-from django.forms import ModelForm, CharField, Select, ModelChoiceField, TextInput, \
-    DateField, DateInput, IntegerField, NumberInput, Textarea
+from django.forms import ModelForm, CharField, Select, ModelChoiceField, TextInput, Textarea
+
+import references.models as model
 from accounts.models import Profile
-from .models import ModelTechnique, EngineModel, TransmissionModel, ModelDriveBridge, \
-    ControlledBridgeModel, TypeMaintenance, FailureNode, RecoveryMethod, \
-    ServiceCompany, OrganizationMaintenance
 
 
 class CreateModelTechnique(ModelForm):
@@ -21,7 +19,7 @@ class CreateModelTechnique(ModelForm):
     )
 
     class Meta:
-        model = ModelTechnique
+        model = model.ModelTechnique
         fields = [
             'title', 'description'
         ]
@@ -42,7 +40,7 @@ class CreateEngineModel(ModelForm):
     )
 
     class Meta:
-        model = EngineModel
+        model = model.EngineModel
         fields = [
             'title', 'description'
         ]
@@ -63,7 +61,7 @@ class CreateTransmissionModel(ModelForm):
     )
 
     class Meta:
-        model = TransmissionModel
+        model = model.TransmissionModel
         fields = [
             'title', 'description'
         ]
@@ -84,7 +82,7 @@ class CreateModelDriveBridge(ModelForm):
     )
 
     class Meta:
-        model = ModelDriveBridge
+        model = model.ModelDriveBridge
         fields = [
             'title', 'description'
         ]
@@ -105,7 +103,7 @@ class CreateControlledBridgeModel(ModelForm):
     )
 
     class Meta:
-        model = ControlledBridgeModel
+        model = model.ControlledBridgeModel
         fields = [
             'title', 'description'
         ]
@@ -126,7 +124,7 @@ class CreateTypeMaintenance(ModelForm):
     )
 
     class Meta:
-        model = TypeMaintenance
+        model = model.TypeMaintenance
         fields = [
             'title', 'description'
         ]
@@ -147,14 +145,13 @@ class CreateFailureNode(ModelForm):
     )
 
     class Meta:
-        model = FailureNode
+        model = model.FailureNode
         fields = [
             'title', 'description'
         ]
 
 
 class CreateRecoveryMethod(ModelForm):
-
     title = CharField(
         label='Название',
         min_length=3,
@@ -169,7 +166,7 @@ class CreateRecoveryMethod(ModelForm):
     )
 
     class Meta:
-        model = RecoveryMethod
+        model = model.RecoveryMethod
         fields = [
             'title', 'description'
         ]
@@ -196,7 +193,7 @@ class CreateServiceCompany(ModelForm):
     )
 
     class Meta:
-        model = ServiceCompany
+        model = model.ServiceCompany
         fields = [
             'title', 'description'
         ]
@@ -217,8 +214,7 @@ class CreateOrganizationMaintenance(ModelForm):
     )
 
     class Meta:
-        model = OrganizationMaintenance
+        model = model.OrganizationMaintenance
         fields = [
             'title', 'description'
         ]
-

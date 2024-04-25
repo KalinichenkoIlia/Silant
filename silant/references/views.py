@@ -1,13 +1,14 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
+from service.mixins import CustomPermissionRequiredMixin
 import references.forms as form
 import references.models as model
 
 
-class ReferencesList(ListView):
-    template_name = 'references.html'
+class References(PermissionRequiredMixin, TemplateView):
+    permission_required = 'references.view_references'
+    template_name = 'references/references.html'
 
 
 class ModelTechniqueList(PermissionRequiredMixin, ListView):

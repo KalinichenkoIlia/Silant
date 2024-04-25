@@ -1,0 +1,38 @@
+.references_content {
+  font-family: PT-Astra-Sans_Bold-Italic, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.references_content h2 {
+  color: #163E6C;
+}
+.references_content table {
+  padding: 20px;
+  border: 2px solid #163E6C;
+  border-radius: 10px;
+}
+.references_content table tr td:nth-child(2) a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.references_button {
+  margin: auto;
+  background-color: #163E6C;
+  width: auto;
+  height: 40px;
+  border-radius: 5px;
+  color: #EBE6D6;
+  border: none;
+  cursor: pointer;
+}
+.references_button:active {
+  opacity: 0.5;
+}
+.references_button:hover {
+  opacity: 0.8;
+}
+
+/*# sourceMappingURL=references.css.map */

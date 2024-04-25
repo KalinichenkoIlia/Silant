@@ -1,14 +1,13 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
 from django.urls import reverse_lazy
-
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
 from .filters import CarFilter, TechnicalServiceFilter, ComplaintsFilter
 from .forms import CreateCarForm, CreateTechnicalMaintenanceForm, CreateComplaints
-
+from .helper import check_data
 from .mixins import CustomPermissionRequiredMixin
 from .models import Car, Complaints, TechnicalMaintenance
-from .helper import check_data
 
 
 class HomePage(ListView):
@@ -80,8 +79,10 @@ class HomePage(ListView):
         context['filter_car'] = self.filter_car
 
         context['not_found_car'] = not self.filter_car.qs and not check_data(self.filter_car.data, 'car-factory_number')
-        context['not_found_service'] = not self.filter_car.qs and not check_data(self.filter_car.data, 'car-factory_number')
-        context['not_found_complaints'] = not self.filter_car.qs and not check_data(self.filter_car.data, 'complaints-car')
+        context['not_found_service'] = not self.filter_car.qs and not check_data(self.filter_car.data,
+                                                                                 'car-factory_number')
+        context['not_found_complaints'] = not self.filter_car.qs and not check_data(self.filter_car.data,
+                                                                                    'complaints-car')
 
         return context
 

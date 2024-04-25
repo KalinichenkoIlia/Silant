@@ -1,10 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block title %}
+Список справочников
+{% endblock title %}
+
+{% block content %}
+<div class="references_content">
+    <h2>Справочники</h2>
+    <table>
+        <tbody>
+        <tr>
+            <td>Сервисные компании</td>
+            <td>
+                <a href="{% url 'service_company_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'service_company_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Вид ТО</td>
+            <td>
+                <a href="{% url 'type_maintenance_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'type_maintenance_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Двигатели</td>
+            <td>
+                <a href="{% url 'engine_model_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'engine_model_list' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Модели ведущего моста</td>
+            <td>
+                <a href="{% url 'model_drive_bridge_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'model_drive_bridge_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Модели техники</td>
+            <td>
+                <a href="{% url 'model_technique_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'model_technique_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Модели трансмиссии</td>
+            <td>
+                <a href="{% url 'transmission_model_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'transmission_model_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Модели управляемого моста</td>
+            <td>
+                <a href="{% url 'controlled_bridge_model_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'controlled_bridge_model_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Организаций,ТО</td>
+            <td>
+                <a href="{% url 'organization_maintenance_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'organization_maintenance_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Способы восстановления</td>
+            <td>
+                <a href="{% url 'recovery_method_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'recovery_method_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Узелы отказа</td>
+            <td>
+                <a href="{% url 'failure_node_list' %}">
+                    <button class="references_button">Смотреть список</button>
+                </a>
+                <a href="{% url 'failure_node_create' %}">
+                    <button class="references_button">Создать</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+</div>
+
+
+{% endblock content %}

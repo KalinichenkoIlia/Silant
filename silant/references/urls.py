@@ -5,7 +5,7 @@ from django.urls import path
 from references import views
 
 urlpatterns = [
-                  path('references', views.ReferencesList.as_view(), name='references'),
+                  path('references', views.References.as_view(), name='references'),
 
                   path('model_technique_list/', views.ModelTechniqueList.as_view(), name='model_technique_list'),
                   path('model_technique/create', views.ModelTechniqueCreate.as_view(), name='model_technique_create'),

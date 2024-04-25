@@ -8,10 +8,12 @@
     {% load account %}
     <script type="text/javascript" src="{% static 'scripts/common_entity.js' %}"></script>
     <script type="text/javascript" src="{% static 'scripts/home.js' %}"></script>
+
     <link href="{% static 'styles/home.css' %}" rel="stylesheet">
     <link href="{% static 'styles/base.css' %}" rel="stylesheet">
     <link href="{% static 'styles/common_entity_styles.css' %}" rel="stylesheet">
     <link href="{% static 'styles/general_creation_card.css' %}" rel="stylesheet">
+    <link href="{% static 'styles/references.css' %}" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -25,6 +27,9 @@
         </div>
         <nav >
             {% if request.user.is_authenticated %}
+            {% if perms.references.view_references%}
+            <a class="link_home" href="{% url 'references' %}">Справочники</a>
+            {% endif %}
             <a class="link_home" href="{% url 'home' %}">Главная</a>
             <a class="account_logout" href="{% url 'account_logout' %}">
                 <button class="button-general ">Выход</button>

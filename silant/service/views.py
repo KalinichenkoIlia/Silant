@@ -89,7 +89,7 @@ class HomePage(ListView):
 class CarDetail(CustomPermissionRequiredMixin, DetailView):
     permission_required = 'service.view_car'
     model = Car
-    template_name = 'car.html'
+    template_name = 'service/car/car.html'
     context_object_name = 'car'
 
 
@@ -97,28 +97,28 @@ class CarCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'service.add_car'
     model = Car
     form_class = CreateCarForm
-    template_name = 'car_create.html'
+    template_name = 'service/car/car_create.html'
     context_object_name = 'car_create'
 
 
 class CarUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'service.change_car'
     form_class = CreateCarForm
-    template_name = 'car_create.html'
+    template_name = 'service/car/car_create.html'
     model = Car
 
 
 class CarDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'service.delete_car'
     model = Car
-    template_name = 'car_delete.html'
+    template_name = 'service/car/car_delete.html'
     success_url = reverse_lazy('/', )
 
 
 class TechnicalMaintenanceDetail(CustomPermissionRequiredMixin, DetailView):
     permission_required = 'service.view_technical_service'
     model = TechnicalMaintenance
-    template_name = 'technical_service.html'
+    template_name = 'service/technical_service/technical_service.html'
     context_object_name = 'technical_service'
 
 
@@ -126,7 +126,7 @@ class TechnicalMaintenanceCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'service.add_technicalmaintenance'
     model = TechnicalMaintenance
     form_class = CreateTechnicalMaintenanceForm
-    template_name = 'technical_service_create.html'
+    template_name = 'service/technical_service/technical_service_create.html'
     context_object_name = 'technical_create'
 
     def get_form_kwargs(self):
@@ -141,7 +141,7 @@ class TechnicalMaintenanceCreate(PermissionRequiredMixin, CreateView):
 
 class TechnicalMaintenanceUpdate(CustomPermissionRequiredMixin, UpdateView):
     permission_required = 'service.change_technicalMaintenance'
-    template_name = 'technical_service_create.html'
+    template_name = 'service/technical_service/technical_service_create.html'
     form_class = CreateTechnicalMaintenanceForm
     model = TechnicalMaintenance
 
@@ -155,14 +155,14 @@ class TechnicalMaintenanceUpdate(CustomPermissionRequiredMixin, UpdateView):
 class TechnicalMaintenanceDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'service.delete_technical_service'
     model = TechnicalMaintenance
-    template_name = 'technical_service_delete.html'
+    template_name = 'service/technical_service/technical_service_delete.html'
     success_url = reverse_lazy('/', )
 
 
 class ComplaintsDetail(CustomPermissionRequiredMixin, DetailView):
     permission_required = 'service.view_complaints'
     model = Complaints
-    template_name = 'complaints.html'
+    template_name = 'service/complaints/complaints.html'
     context_object_name = 'complaints'
 
 
@@ -170,7 +170,7 @@ class ComplaintsCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'service.add_complaints'
     model = Complaints
     form_class = CreateComplaints
-    template_name = 'complaints_create.html'
+    template_name = 'service/complaints/complaints_create.html'
     context_object_name = 'complaints_create'
 
     def get_form_kwargs(self):
@@ -182,7 +182,7 @@ class ComplaintsCreate(PermissionRequiredMixin, CreateView):
 
 class ComplaintsUpdate(CustomPermissionRequiredMixin, UpdateView):
     permission_required = 'service.change_complaints'
-    template_name = 'complaints_create.html'
+    template_name = 'service/complaints/complaints_create.html'
     form_class = CreateComplaints
     model = Complaints
 
@@ -196,5 +196,5 @@ class ComplaintsUpdate(CustomPermissionRequiredMixin, UpdateView):
 class ComplaintsDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'service.delete_complaints'
     model = Complaints
-    template_name = 'complaints_delete.html'
+    template_name = 'service/complaints/complaints_delete.html'
     success_url = reverse_lazy('/', )

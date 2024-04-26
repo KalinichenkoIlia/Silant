@@ -175,7 +175,7 @@ class CreateRecoveryMethod(ModelForm):
 class CreateServiceCompany(ModelForm):
     profile = ModelChoiceField(
         label='Профиль сервисной компании',
-        queryset=Profile.objects.all(),
+        queryset=Profile.objects.filter(position='SC'),
         widget=Select(
             attrs={'class': 'form-control'})
     )

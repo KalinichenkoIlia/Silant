@@ -28,7 +28,7 @@
         </div>
         <nav >
             {% if request.user.is_authenticated %}
-            {% if perms.references.view_references%}
+            {% if perms.references.view_modeltechnique %}
             <a class="link_home" href="{% url 'references' %}">Справочники</a>
             {% endif %}
             <a class="link_home" href="{% url 'home' %}">Главная</a>

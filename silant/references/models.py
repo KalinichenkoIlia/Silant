@@ -1,7 +1,10 @@
 from django.db import models
+from django.urls import reverse
+
 from accounts.models import Profile
 
 '''Справочники'''
+
 
 class ModelTechnique(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
@@ -13,6 +16,9 @@ class ModelTechnique(models.Model):
 
     def __str__(self):
         return f'{self.title} {self.description}'
+
+    def get_absolute_url(self):
+        return reverse('model_technique_list')
 
 
 class EngineModel(models.Model):
@@ -26,9 +32,11 @@ class EngineModel(models.Model):
     def __str__(self):
         return f'{self.title} {self.description}'
 
+    def get_absolute_url(self):
+        return reverse('engine_model_list')
+
 
 class TransmissionModel(models.Model):
-
     title = models.CharField(max_length=128, verbose_name='Название')
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
 
@@ -38,6 +46,9 @@ class TransmissionModel(models.Model):
 
     def __str__(self):
         return f'{self.title} {self.description}'
+
+    def get_absolute_url(self):
+        return reverse('transmission_model_list')
 
 
 class ModelDriveBridge(models.Model):
@@ -51,6 +62,9 @@ class ModelDriveBridge(models.Model):
     def __str__(self):
         return f'{self.title} {self.description}'
 
+    def get_absolute_url(self):
+        return reverse('model_drive_bridge_list')
+
 
 class ControlledBridgeModel(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
@@ -62,6 +76,9 @@ class ControlledBridgeModel(models.Model):
 
     def __str__(self):
         return f'{self.title} {self.description}'
+
+    def get_absolute_url(self):
+        return reverse('controlled_bridge_model_list')
 
 
 class TypeMaintenance(models.Model):
@@ -75,6 +92,9 @@ class TypeMaintenance(models.Model):
     def __str__(self):
         return f'{self.title} {self.description}'
 
+    def get_absolute_url(self):
+        return reverse('type_maintenance_list')
+
 
 class FailureNode(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
@@ -87,6 +107,9 @@ class FailureNode(models.Model):
     def __str__(self):
         return f'{self.title} {self.description}'
 
+    def get_absolute_url(self):
+        return reverse('failure_node_list')
+
 
 class RecoveryMethod(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
@@ -98,6 +121,9 @@ class RecoveryMethod(models.Model):
 
     def __str__(self):
         return f'{self.title} {self.description}'
+
+    def get_absolute_url(self):
+        return reverse('recovery_method_list')
 
 
 class ServiceCompany(models.Model):
@@ -112,6 +138,9 @@ class ServiceCompany(models.Model):
     def __str__(self):
         return f'{self.title} {self.description}'
 
+    def get_absolute_url(self):
+        return reverse('service_company_list')
+
 
 class OrganizationMaintenance(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
@@ -123,3 +152,7 @@ class OrganizationMaintenance(models.Model):
 
     def __str__(self):
         return f'{self.title} {self.description}'
+
+    def get_absolute_url(self):
+        return reverse('organization_maintenance_list')
+

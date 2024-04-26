@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Создание / Редактирование </h2>
+<hr>
+
+<form class="form_card" action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="card_submit" type="submit" value="Сохранить" />
+</form>
+
+</div>
+{% endblock content %}

@@ -9,7 +9,7 @@ class CustomPermissionRequiredMixin(PermissionRequiredMixin):
     Проверяет отношение клиента или сервисной компании к объекту модели
 
     :has_permission -> bool
-    для менеджера или пользователя с статусом сотрудника  "True"
+    для менеджера или пользователя с статусом сотрудника -> "True"
 
     """
     def has_permission(self):
@@ -49,3 +49,16 @@ class CustomPermissionRequiredMixin(PermissionRequiredMixin):
 
         else:
             return True
+
+
+class ManagerMixin(PermissionRequiredMixin):
+    def has_permission(self):
+
+        if self.request.user.is_authenticated:
+
+            if self.request.user.is_staff or self.request.user.profile.position == 'MG':
+                return True
+            else:
+                return False
+        else:
+            return False

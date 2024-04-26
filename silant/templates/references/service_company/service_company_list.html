@@ -26,9 +26,11 @@
             <tr>
                 <td >{{ company.title }}</td>
                 <td >{{ company.profile }}</td>
+                {% if perms.references.change_serviceCompany %}
                  <td><a href="{% url 'service_company_update' pk=company.id %}">
                     <button class="references_button">Редактировать </button>
                 </a></td>
+                {% endif %}
             </tr>
 
             {% empty %}

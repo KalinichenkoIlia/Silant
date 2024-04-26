@@ -1,0 +1,59 @@
+.references_list_content {
+  font-family: PT-Astra-Sans_Bold-Italic, sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.references_list_content h2 {
+  color: #163E6C;
+  margin: 0 80px 0 0;
+}
+.references_list_content section {
+  width: 95%;
+  border: 2px solid #163E6C;
+  border-radius: 20px;
+}
+
+.references_table {
+  width: 95%;
+  margin: 20px 30px 30px 30px;
+}
+.references_table th {
+  font-size: 16px;
+  background-color: #EDEDED;
+  padding: 10px 15px;
+}
+.references_table tbody tr td:nth-child(1) {
+  text-align: start;
+}
+.references_table tbody tr td:nth-child(2) {
+  text-align: center;
+}
+.references_table tbody tr td:nth-child(3) {
+  width: 96px;
+  text-align: center;
+}
+.references_table tbody tr td:nth-child(3) button {
+  margin: 5px;
+}
+
+.references_table tbody tr:nth-child(even) {
+  background: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .references_table {
+    margin: 5px;
+    font-size: 11px;
+  }
+  .references_table tbody tr td:nth-child(1) {
+    width: 96px;
+    text-align: center;
+  }
+  .references_table tbody tr td:nth-child(1) button {
+    margin: 5px;
+  }
+}
+
+/*# sourceMappingURL=general_references.css.map */

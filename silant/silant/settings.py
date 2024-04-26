@@ -159,4 +159,5 @@ STATICFILES_DIRS = [
 ACCOUNT_ALLOW_SIGNUPS = False
 ACCOUNT_ADAPTER = 'accounts.adapter.NoNewUsersAccountAdapter'
 
-LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
+
+LOGIN_REDIRECT_URL = 'home'

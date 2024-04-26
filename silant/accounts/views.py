@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+from allauth.account.views import LoginView
+
+
+class AccountLoginView(LoginView):
+    template_name = "custom_login.html"
+

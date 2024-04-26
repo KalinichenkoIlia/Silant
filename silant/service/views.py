@@ -124,7 +124,7 @@ class TechnicalMaintenanceDetail(CustomPermissionRequiredMixin, DetailView):
 
 
 class TechnicalMaintenanceCreate(PermissionRequiredMixin, CreateView):
-    permission_required = 'service.add_technicalmaintenance'
+    permission_required = 'service.add_technicalMaintenance'
     model = TechnicalMaintenance
     form_class = CreateTechnicalMaintenanceForm
     template_name = 'service/technical_service/technical_service_create.html'
@@ -154,7 +154,7 @@ class TechnicalMaintenanceUpdate(CustomPermissionRequiredMixin, UpdateView):
 
 
 class TechnicalMaintenanceDelete(PermissionRequiredMixin, DeleteView):
-    permission_required = 'service.delete_technical_service'
+    permission_required = 'service.delete_technicalMaintenance'
     model = TechnicalMaintenance
     template_name = 'service/technical_service/technical_service_delete.html'
     success_url = reverse_lazy('/', )

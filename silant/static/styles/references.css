@@ -42,7 +42,7 @@
   color: #EBE6D6;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
 }
 .references_button:active {
   opacity: 0.5;

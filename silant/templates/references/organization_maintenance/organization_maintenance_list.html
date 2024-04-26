@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block title %}
+Организации ТО
+{% endblock title %}
+
+{% block content %}
+<div class="references_list_content">
+
+    <h2></h2>
+    <section>
+        <table class="references_table">
+             <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Описание</th>
+
+                        <th></th>
+                    </tr>
+                    </thead>
+            <tbody>
+            {% if organization_maintenance_list %}
+            {% for organization in organization_maintenance_list %}
+            <tr>
+                <td >{{ organization.title }}</td>
+                <td >{{ organization.description }}</td>
+                 <td><a href="{% url 'organization_maintenance_update' pk=organization.id %}">
+                    <button class="references_button">Редактировать </button>
+                </a></td>
+            </tr>
+
+            {% empty %}
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+    </section>
+
+
+    <div class="content-editing">
+        <button class="history_back"> Назад</button>
+
+        {% if perms.service.change_car %}
+
+    </div>
+
+    {% endif %}
+</div>
+
+
+{% endblock content %}

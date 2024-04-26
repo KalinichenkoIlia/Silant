@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block title %}
+Сервисные компании
+{% endblock title %}
+
+{% block content %}
+<div class="references_list_content">
+
+    <h2></h2>
+    <section>
+        <table class="references_table">
+             <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Профиль пользователя</th>
+
+                        <th></th>
+                    </tr>
+                    </thead>
+            <tbody>
+            {% if service_company_list %}
+            {% for company in service_company_list %}
+            <tr>
+                <td >{{ company.title }}</td>
+                <td >{{ company.profile }}</td>
+                 <td><a href="{% url 'service_company_update' pk=company.id %}">
+                    <button class="references_button">Редактировать </button>
+                </a></td>
+            </tr>
+
+            {% empty %}
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+    </section>
+
+
+    <div class="content-editing">
+        <button class="history_back"> Назад</button>
+
+        {% if perms.service.change_car %}
+
+    </div>
+
+    {% endif %}
+</div>
+
+
+{% endblock content %}

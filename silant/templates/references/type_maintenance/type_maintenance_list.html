@@ -1,10 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+Вид ТО
+{% block title %}
+Модели трансмисий
+{% endblock title %}
+
+{% block content %}
+<div class="references_list_content">
+
+    <h2></h2>
+    <section>
+        <table class="references_table">
+             <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Описание</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+            <tbody>
+            {% if type_maintenance_list %}
+            {% for type_maintenance in type_maintenance_list %}
+            <tr>
+                <td >{{ type_maintenance.title }}</td>
+                <td >{{ type_maintenance.description }}</td>
+                 <td><a href="{% url 'type_maintenance_update' pk=type_maintenance.id %}">
+                    <button class="references_button">Редактировать </button>
+                </a></td>
+            </tr>
+
+            {% empty %}
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+    </section>
+
+
+    <div class="content-editing">
+        <button class="history_back"> Назад</button>
+
+        {% if perms.service.change_car %}
+
+    </div>
+
+    {% endif %}
+</div>
+
+
+{% endblock content %}

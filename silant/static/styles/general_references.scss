@@ -1,0 +1,80 @@
+@import './variables.color';
+
+.references_list_content {
+  font-family: PT-Astra-Sans_Bold-Italic, sans-serif;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+
+    color: $basic-color-silant-blue;
+    margin: 0 80px 0 0;
+
+  }
+
+  section {
+    width: 95%;
+    border: 2px solid $basic-color-silant-blue;
+    border-radius: 20px;
+  }
+}
+
+.references_table {
+  width: 95%;
+  margin: 20px 30px 30px 30px;
+
+  th {
+    font-size: 16px;
+    background-color: #EDEDED;
+    padding: 10px 15px;
+  }
+
+  tbody {
+    tr {
+      td:nth-child(1) {
+        text-align: start;
+      }
+
+      td:nth-child(2) {
+        text-align: center;
+      }
+
+      td:nth-child(3) {
+        width: 96px;
+        text-align: center;
+
+        button {
+          margin: 5px;
+        }
+      }
+    }
+  }
+}
+
+.references_table tbody tr:nth-child(even) {
+  background: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .references_table {
+    margin: 5px;
+    font-size: 11px;
+
+    tbody {
+      tr {
+        td:nth-child(1) {
+          width: 96px;
+          text-align: center;
+
+          button {
+            margin: 5px;
+          }
+        }
+      }
+    }
+  }
+
+
+}

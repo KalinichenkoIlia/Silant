@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block title %}
+Способы востановления
+{% endblock title %}
+
+{% block content %}
+<div class="references_list_content">
+
+    <h2></h2>
+    <section>
+        <table class="references_table">
+             <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Описание</th>
+
+                        <th></th>
+                    </tr>
+                    </thead>
+            <tbody>
+            {% if recovery_method_list %}
+            {% for recovery_method in recovery_method_list %}
+            <tr>
+                <td >{{ recovery_method.title }}</td>
+                <td >{{ recovery_method.description }}</td>
+                 <td><a href="{% url 'recovery_method_update' pk=recovery_method.id %}">
+                    <button class="references_button">Редактировать </button>
+                </a></td>
+            </tr>
+
+            {% empty %}
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+    </section>
+
+
+    <div class="content-editing">
+        <button class="history_back"> Назад</button>
+
+        {% if perms.service.change_car %}
+
+    </div>
+
+    {% endif %}
+</div>
+
+
+{% endblock content %}

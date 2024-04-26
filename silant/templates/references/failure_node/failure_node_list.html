@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block title %}
+Узелы отказа
+{% endblock title %}
+
+{% block content %}
+<div class="references_list_content">
+
+    <h2></h2>
+    <section>
+        <table class="references_table">
+             <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Описание</th>
+
+                        <th></th>
+                    </tr>
+                    </thead>
+            <tbody>
+            {% if failure_node_list %}
+            {% for failure_node in failure_node_list %}
+            <tr>
+                <td >{{ failure_node.title }}</td>
+                <td >{{ failure_node.description }}</td>
+                 <td><a href="{% url 'failure_node_update' pk=failure_node.id %}">
+                    <button class="references_button">Редактировать </button>
+                </a></td>
+            </tr>
+
+            {% empty %}
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+    </section>
+
+
+    <div class="content-editing">
+        <button class="history_back"> Назад</button>
+
+        {% if perms.service.change_car %}
+
+    </div>
+
+    {% endif %}
+</div>
+
+
+{% endblock content %}

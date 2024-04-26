@@ -1,21 +1,36 @@
 .references_content {
   font-family: PT-Astra-Sans_Bold-Italic, sans-serif;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
 }
 .references_content h2 {
   color: #163E6C;
 }
 .references_content table {
+  width: 92%;
   padding: 20px;
   border: 2px solid #163E6C;
   border-radius: 10px;
 }
+.references_content table tr td:nth-child(1) {
+  text-align: center;
+}
+.references_content table tr td:nth-child(2) {
+  text-align: right;
+}
 .references_content table tr td:nth-child(2) a {
   display: inline-block;
   text-decoration: none;
+}
+.references_content table tr td:nth-child(2) a:nth-child(2) {
+  margin: 5px;
+}
+.references_content table tr:nth-child(even) {
+  background-color: white;
 }
 
 .references_button {
@@ -27,12 +42,27 @@
   color: #EBE6D6;
   border: none;
   cursor: pointer;
+  font-size: 16px;
 }
 .references_button:active {
   opacity: 0.5;
 }
 .references_button:hover {
   opacity: 0.8;
+}
+
+@media only screen and (max-width: 713px) {
+  .references_content {
+    font-size: 10px;
+  }
+  .references_button {
+    font-size: 10px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .references_content table {
+    width: 98%;
+  }
 }
 
 /*# sourceMappingURL=references.css.map */

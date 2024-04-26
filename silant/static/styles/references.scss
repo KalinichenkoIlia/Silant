@@ -2,27 +2,47 @@
 
 .references_content {
   font-family: PT-Astra-Sans_Bold-Italic, sans-serif;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
+
   h2 {
     color: $basic-color-silant-blue;
   }
 
   table {
+    width: 92%;
     padding: 20px;
     border: 2px solid $basic-color-silant-blue;
     border-radius: 10px;
 
     tr {
+      td:nth-child(1) {
+        text-align: center;
+      }
+
       td:nth-child(2) {
+
+        text-align: right;
+
         a {
           display: inline-block;
           text-decoration: none;
         }
+
+        a:nth-child(2) {
+          margin: 5px;
+        }
       }
     }
+
+    tr:nth-child(even) {
+      background-color: white;
+    }
+
   }
 }
 
@@ -35,6 +55,8 @@
   color: $basic-color-silant;
   border: none;
   cursor: pointer;
+  font-size: 16px;
+
 
   &:active {
     opacity: 0.5;
@@ -43,4 +65,22 @@
   &:hover {
     opacity: 0.8;
   }
+}
+
+@media only screen and (max-width: 713px) {
+  .references_content {
+    font-size: 10px;
+  }
+  .references_button {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .references_content {
+    table {
+      width: 98%;
+    }
+  }
+
 }

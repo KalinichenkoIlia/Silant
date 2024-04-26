@@ -55,6 +55,7 @@ footer {
   flex-direction: column;
   align-items: center;
   color: #163E6C;
+  margin-left: 173px;
   font-family: PT-Astra-Sans_Bold-Italic, sans-serif;
 }
 .header-banner h1 {
@@ -117,6 +118,10 @@ footer {
   }
   .header-banner {
     display: none;
+  }
+  .link_home {
+    font-size: 13px;
+    margin-right: 10px;
   }
 }
 

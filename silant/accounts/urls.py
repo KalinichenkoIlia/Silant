@@ -3,7 +3,6 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from .views import AccountLoginView
-
 urlpatterns = [
                   path("login/", AccountLoginView.as_view(), name='login'),
 

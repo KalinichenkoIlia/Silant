@@ -27,15 +27,17 @@
             <p>+7 (8352)-20-12-09, Telegram</p>
             <h1>Электронная сервисная книжка "Мой Силант"</h1>
         </div>
-        <nav >
+        <nav>
             {% if request.user.is_authenticated %}
             {% if perms.references.view_modeltechnique %}
             <a class="link_home" href="{% url 'references' %}">Справочники</a>
             {% endif %}
             <a class="link_home" href="{% url 'home' %}">Главная</a>
-            <a class="account_logout" href="{% url 'account_logout' %}">
-                <button class="button-general ">Выход</button>
-            </a>
+
+            <form class="logout" id="logout_form" method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                <button class="button-general" type="submit">Выход</button>
+            </form>
             {% elif not request.user.is_authenticated %}
             <a class="account_login" href="{% url 'login' %}">
                 <button class="button-general ">Вход</button>

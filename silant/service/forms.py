@@ -1,7 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm, CharField, Select, ModelChoiceField, TextInput, \
-    DateField, DateInput, IntegerField, NumberInput, Textarea
-
+     DateInput, IntegerField, NumberInput, Textarea, DateTimeField
 from accounts.models import Profile
 from references import models
 from .models import Car, TechnicalMaintenance, Complaints
@@ -76,10 +75,11 @@ class CreateCarForm(ModelForm):
         widget=TextInput(
             attrs={'class': 'form-control'})
     )
-    factory_shipment_date = DateField(
+    factory_shipment_date = DateTimeField(
         label='Дата отгрузки с завода',
         widget=DateInput(
-            attrs={'class': 'form-control'})
+            format='%Y-%m-%d',
+            attrs={'class': 'form-control', 'type': 'date'})
     )
     consignee = CharField(
         label='Грузополучатель',
@@ -163,10 +163,11 @@ class CreateTechnicalMaintenanceForm(ModelForm):
         widget=Select(
             attrs={'class': 'form-control'})
     )
-    date_event = DateField(
+    date_event = DateTimeField(
         label='Дата проведения ТО',
         widget=DateInput(
-            attrs={'class': 'form-control'})
+            format='%Y-%m-%d',
+            attrs={'class': 'form-control', 'type': 'date'})
     )
     operating_time = IntegerField(
         label='Наработка, м/час',
@@ -180,10 +181,11 @@ class CreateTechnicalMaintenanceForm(ModelForm):
         widget=TextInput(
             attrs={'class': 'form-control'})
     )
-    date_order = DateField(
+    date_order = DateTimeField(
         label='Дата заказ-наряда',
         widget=DateInput(
-            attrs={'class': 'form-control'})
+            format='%Y-%m-%d',
+            attrs={'class': 'form-control', 'type': 'date'})
     )
     organization_maintenance = ModelChoiceField(
         queryset=models.OrganizationMaintenance.objects.all(),
@@ -224,10 +226,11 @@ class CreateComplaints(ModelForm):
             car.disabled = True
             service_company.disabled = True
 
-    date_refusal = DateField(
+    date_refusal = DateTimeField(
         label='Дата отказа',
         widget=DateInput(
-            attrs={'class': 'form-control'})
+            format='%Y-%m-%d',
+            attrs={'class': 'form-control', 'type': 'date'})
     )
     operating_time = IntegerField(
         label='Наработка, м/час',
@@ -256,10 +259,11 @@ class CreateComplaints(ModelForm):
         widget=Textarea(
             attrs={'class': 'form-control'})
     )
-    date_restoration = DateField(
+    date_restoration = DateTimeField(
         label='Дата восстановления',
         widget=DateInput(
-            attrs={'class': 'form-control'})
+            format='%Y-%m-%d',
+            attrs={'class': 'form-control', 'type': 'date'})
     )
     car = ModelChoiceField(
         queryset=Car.objects.all(),

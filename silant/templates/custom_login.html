@@ -10,7 +10,7 @@
 
 <div class="login_container">
 
-    <form class="login_form" id="_form" method="post" action="{% url 'account_login' %}">
+    <form class="login_form" id="_form" method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <div class="input_username">
         <label for="id_login">Имя пользователя </label>

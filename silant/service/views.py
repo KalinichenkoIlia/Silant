@@ -124,7 +124,7 @@ class TechnicalMaintenanceDetail(CustomPermissionRequiredMixin, DetailView):
 
 
 class TechnicalMaintenanceCreate(PermissionRequiredMixin, CreateView):
-    permission_required = 'service.add_technicalMaintenance'
+    permission_required = 'service.add_technicalmaintenance'
     model = TechnicalMaintenance
     form_class = CreateTechnicalMaintenanceForm
     template_name = 'service/technical_service/technical_service_create.html'

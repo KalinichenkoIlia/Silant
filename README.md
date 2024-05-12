@@ -3,7 +3,7 @@
 # Для запуска проекта вам необходимо #
 
 ```
-git clone https://github.com/TreworReznik/Silant.git
+git clone https://github.com/KalinichenkoIlia/Silant.git
 ```
 >Открыть терминал и выполнить команду..
 #

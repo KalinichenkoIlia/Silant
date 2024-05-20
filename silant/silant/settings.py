@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'drf_yasg',
+    "rest_framework.authtoken"
 
 ]
 
@@ -153,3 +154,13 @@ ACCOUNT_ALLOW_SIGNUPS = False
 ACCOUNT_ADAPTER = 'accounts.adapter.NoNewUsersAccountAdapter'
 
 LOGIN_REDIRECT_URL = 'home'
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ]
+}

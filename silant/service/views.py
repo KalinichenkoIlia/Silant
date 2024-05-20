@@ -8,6 +8,8 @@ from .forms import CreateCarForm, CreateTechnicalMaintenanceForm, CreateComplain
 from .helper import check_data
 from .mixins import CustomPermissionRequiredMixin
 from .models import Car, Complaints, TechnicalMaintenance
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
 from service import serializers
 from rest_framework import viewsets
@@ -205,16 +207,18 @@ class ComplaintsDelete(PermissionRequiredMixin, DeleteView):
 class CarViewSet(viewsets.ModelViewSet):
     queryset = Car.objects.all()
     serializer_class = serializers.SerializersCar
+    permissions_classes = [IsAuthenticated]
 
 
 class TechnicalMaintenanceViewSet(viewsets.ModelViewSet):
     queryset = TechnicalMaintenance.objects.all()
     serializer_class = serializers.SerializersTechnicalMaintenance
+    permissions_classes = [IsAuthenticated]
 
 
 class ComplaintsViewSet(viewsets.ModelViewSet):
     queryset = Complaints.objects.all()
     serializer_class = serializers.SerializersComplaints
-
+    permissions_classes = [IsAuthenticated]
 
 

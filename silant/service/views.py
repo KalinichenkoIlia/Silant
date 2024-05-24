@@ -9,10 +9,11 @@ from .helper import check_data
 from .mixins import CustomPermissionRequiredMixin
 from .models import Car, Complaints, TechnicalMaintenance
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
+
 
 from service import serializers
 from rest_framework import viewsets
+
 
 class HomePage(ListView):
     template_name = 'home.html'
@@ -204,21 +205,23 @@ class ComplaintsDelete(PermissionRequiredMixin, DeleteView):
     template_name = 'service/complaints/complaints_delete.html'
     success_url = reverse_lazy('/', )
 
+
 class CarViewSet(viewsets.ModelViewSet):
     queryset = Car.objects.all()
     serializer_class = serializers.SerializersCar
-    permissions_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class TechnicalMaintenanceViewSet(viewsets.ModelViewSet):
     queryset = TechnicalMaintenance.objects.all()
     serializer_class = serializers.SerializersTechnicalMaintenance
-    permissions_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class ComplaintsViewSet(viewsets.ModelViewSet):
     queryset = Complaints.objects.all()
     serializer_class = serializers.SerializersComplaints
-    permissions_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+
 
 
